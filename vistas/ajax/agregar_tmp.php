@@ -95,13 +95,13 @@ while ($row = mysqli_fetch_array($sql)) {
     $nombre_producto = $row['nombre_producto'];
 
     $precio_venta   = $row['precio_tmp'];
-    $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
-    $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-    $precio_total   = $precio_venta_r * $cantidad;
+    $precio_venta_f = number_format($precio_venta, 0, '', ''); //Formateo variables
+   // $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
+    $precio_total   = $precio_venta * $cantidad;
     $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
     /*--------------------------------------------------------------------------------*/
-    $precio_total_f = number_format($final_items, 2); //Precio total formateado
-    $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
+    $precio_total_f = number_format($final_items, 0, '', '.'); //Precio total formateado
+    //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
     $sumador_total += $precio_total_r; //Sumador
     $subtotal = number_format($sumador_total, 2, '.', '');
     if ($row['iva_producto'] == 1) {

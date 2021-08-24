@@ -342,7 +342,7 @@ function printFactura(id_factura) {
 	function comprobar(select){
 		var rnc = $("#rnc").val();
 		if(select.value==1 && rnc==''){
-			$.Notification.notify('warning','bottom center','NOTIFICACIÓN', 'AL CLIENTE SELECCIONADO NO SE LE PUEDE IMPRIR LA FACTURA, NO TIENE RNC/DEDULA REGISTRADO')
+			$.Notification.notify('warning','bottom center','NOTIFICACIÓN', 'AL CLIENTE SELECCIONADO NO SE LE PUEDE IMPRIR LA FACTURA, NO TIENE RUC - CEDULA REGISTRADO')
 			$("#resultados4").load("../ajax/tipo_doc.php");
 		} else{
 			//$("#resultados3").load("../ajax/carga_resibido.php");
