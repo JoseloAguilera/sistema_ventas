@@ -1,9 +1,5 @@
 <?php
-/*-------------------------
-Autor: Delmar Lopez
-Web: www.softwys.com
-Mail: softwysop@gmail.com
----------------------------*/
+
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $session_id = session_id();
 /* Connect To Database*/
@@ -92,20 +88,20 @@ while ($row = mysqli_fetch_array($sql)) {
     $nombre_producto = $row['nombre_producto'];
 
     $precio_venta   = $row['precio_tmp'];
-    $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
-    $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-    $precio_total   = $precio_venta_r * $cantidad;
+    $precio_venta_f = number_format($precio_venta, 0, '', ''); //Formateo variables
+    //$precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
+    $precio_total   = $precio_venta * $cantidad;
     $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
     /*--------------------------------------------------------------------------------*/
-    $precio_total_f = number_format($final_items, 2); //Precio total formateado
-    $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
-    $sumador_total += $precio_total_r; //Sumador
+    $precio_total_f = number_format($final_items, 0, '', '.'); //Precio total formateado
+    //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
+    $sumador_total += $final_items; //Sumador
     $final_items = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
-    $subtotal    = number_format($sumador_total, 2, '.', '');
+    $subtotal    = $sumador_total;
     if ($row['iva_producto'] == 1) {
         $total_iva = iva($precio_venta);
     } else {
-        $total_iva = 0;
+        $total_iva = $precio_venta/11;
     }
     $total_impuesto += rebajas($total_iva, $desc_tmp) * $cantidad;
     ?>
@@ -120,10 +116,10 @@ while ($row = mysqli_fetch_array($sql)) {
 $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
     while ($rw1 = mysqli_fetch_array($sql1)) {
         ?>
-                        <option selected disabled value="<?php echo $precio_venta ?>"><?php echo number_format($precio_venta, 2); ?></option>
-                        <option value="<?php echo $rw1['valor1_producto'] ?>">PV <?php echo number_format($rw1['valor1_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor2_producto'] ?>">PM <?php echo number_format($rw1['valor2_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor3_producto'] ?>">PE <?php echo number_format($rw1['valor3_producto'], 2); ?></option>
+                        <option selected disabled value="<?php echo $precio_venta ?>"><?php echo number_format($precio_venta, 0, '', ''); ?></option>
+                        <option value="<?php echo $rw1['valor1_producto'] ?>">PV <?php echo number_format($rw1['valor1_producto'], 0, '', '.'); ?></option>
+                        <option value="<?php echo $rw1['valor2_producto'] ?>">PM <?php echo number_format($rw1['valor2_producto'], 0, '', '.'); ?></option>
+                        <option value="<?php echo $rw1['valor3_producto'] ?>">PE <?php echo number_format($rw1['valor3_producto'], 0, '', '.'); ?></option>
                         <?php
 }
     ?>
@@ -133,7 +129,7 @@ $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . 
         <td align="right" width="15%">
                 <input type="text" class="form-control txt_desc" style="text-align:center" value="<?php echo $desc_tmp; ?>" id="<?php echo $id_tmp; ?>">
         </td>
-        <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($final_items, 2); ?></td>
+        <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($final_items, 0, '', '.'); ?></td>
         <td class='text-center'>
             <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>')"><i class="fa fa-remove"></i>
             </a>
@@ -141,22 +137,22 @@ $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . 
     </tr>
     <?php
 }
-$total_factura = $subtotal + $total_impuesto;
+$total_factura = $subtotal;
 
 ?>
 <tr>
     <td class='text-right' colspan=5>SUBTOTAL</td>
-    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 2); ?></b></td>
+    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 0, '', '.'); ?></b></td>
     <td></td>
 </tr>
 <tr>
     <td class='text-right' colspan=5><?php echo $nom_impuesto; ?> (<?php echo $impuesto; ?>)% </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 2); ?></td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 0, '', '.'); ?></td>
     <td></td>
 </tr>
 <tr>
     <td style="font-size: 14pt;" class='text-right' colspan=5><b>TOTAL <?php echo $simbolo_moneda; ?></b></td>
-    <td style="font-size: 16pt;" class='text-right'><span class="label label-danger"><b><?php echo number_format($total_factura, 2); ?></b></span></td>
+    <td style="font-size: 16pt;" class='text-right'><span class="label label-danger"><b><?php echo number_format($total_factura, 0, '', '.'); ?></b></span></td>
     <td></td>
 </tr>
 </tbody>
