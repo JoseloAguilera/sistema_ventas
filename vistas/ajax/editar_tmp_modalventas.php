@@ -1,9 +1,5 @@
 <?php
-/*-------------------------
-Autor: Delmar Lopez
-Web: www.softwys.com
-Mail: softwysop@gmail.com
----------------------------*/
+
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $id_factura     = $_SESSION['id_factura'];
 $numero_factura = $_SESSION['numero_factura'];
@@ -77,8 +73,12 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 $impuesto       = get_row('perfil', 'impuesto', 'id_perfil', 1);
 $nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
 $sumador_total  = 0;
-$total_iva      = 0;
-$total_impuesto = 0;
+$total_iva0      = 0;
+$total_iva5      = 0;
+$total_iva10      = 0;
+$total_impuesto0 = 0;
+$total_impuesto5 = 0;
+$total_impuesto10 = 0;
 $sql            = mysqli_query($conexion, "select * from productos, facturas_ventas, detalle_fact_ventas where facturas_ventas.id_factura=detalle_fact_ventas.id_factura and  facturas_ventas.id_factura='$id_factura' and productos.id_producto=detalle_fact_ventas.id_producto");
 while ($row = mysqli_fetch_array($sql)) {
     $id_detalle      = $row["id_detalle"];
@@ -89,21 +89,26 @@ while ($row = mysqli_fetch_array($sql)) {
     $nombre_producto = $row['nombre_producto'];
 
     $precio_venta   = $row['precio_venta'];
-    $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
-    $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-    $precio_total   = $precio_venta_r * $cantidad;
+    $precio_venta_f = number_format($precio_venta, 0, '', ''); //Formateo variables
+    //$precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
+    $precio_total   = $precio_venta * $cantidad;
     $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
     /*--------------------------------------------------------------------------------*/
-    $precio_total_f = number_format($final_items, 2); //Precio total formateado
-    $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
-    $sumador_total += $precio_total_r; //Sumador
-    $subtotal = number_format($sumador_total, 2, '.', '');
-    if ($row['iva_producto'] == 1) {
-        $total_iva = iva($precio_venta);
-    } else {
-        $total_iva = 0;
+    $precio_total_f = number_format($final_items, 0, '', ''); //Precio total formateado
+    //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
+    $sumador_total += $final_items; //Sumador
+    $subtotal = $sumador_total
+    if ($row['iva_producto'] == 10) {
+        //$total_iva = iva($precio_venta);
+        $total_iva10 = $precio_venta/11;
+        $total_impuesto10 += (rebajas($total_iva10, $desc_tmp) * $cantidad);
+    } elseif ($row['iva_producto'] == 5) {
+        $total_iva5 = $precio_venta/21;
+        $total_impuesto5 += (rebajas($total_iva5, $desc_tmp) * $cantidad);
+    }else {
+        $total_iva0 = $precio_venta;
+        $total_impuesto0 += (rebajas($total_iva0, $desc_tmp) * $cantidad);
     }
-    $total_impuesto += rebajas($total_iva, $desc_tmp) * $cantidad;
     ?>
     <tr>
         <td class='text-center'><?php echo $codigo_producto; ?></td>
@@ -116,10 +121,10 @@ while ($row = mysqli_fetch_array($sql)) {
 $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
     while ($rw1 = mysqli_fetch_array($sql1)) {
         ?>
-                        <option selected disabled value="<?php echo $precio_venta ?>"><?php echo number_format($precio_venta, 2); ?></option>
-                        <option value="<?php echo $rw1['valor1_producto'] ?>">PV <?php echo number_format($rw1['valor1_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor2_producto'] ?>">PM <?php echo number_format($rw1['valor2_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor3_producto'] ?>">PE <?php echo number_format($rw1['valor3_producto'], 2); ?></option>
+                        <option selected disabled value="<?php echo $precio_venta ?>"><?php echo number_format($precio_venta, 0, '', '.'); ?></option>
+                        <option value="<?php echo $rw1['valor1_producto'] ?>">PV <?php echo number_format($rw1['valor1_producto'], 0, '', '.'); ?></option>
+                        <option value="<?php echo $rw1['valor2_producto'] ?>">PM <?php echo number_format($rw1['valor2_producto'], 0, '', '.'); ?></option>
+                        <option value="<?php echo $rw1['valor3_producto'] ?>">PE <?php echo number_format($rw1['valor3_producto'], 0, '', '.'); ?></option>
                         <?php
 }
     ?>
@@ -143,17 +148,30 @@ $update        = mysqli_query($conexion, "update facturas_ventas set monto_factu
 ?>
 <tr>
     <td class='text-right' colspan=5>SUBTOTAL</td>
-    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 2); ?></b></td>
+    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 0, '', '.'); ?></b></td>
     <td></td>
 </tr>
 <tr>
-    <td class='text-right' colspan=5><?php echo $nom_impuesto; ?> (<?php echo $impuesto; ?>)% </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 2); ?></td>
+    <td class='text-right' colspan=5><?php echo "IVA 10 %"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto10, 0, '', '.'); ?>
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td class='text-right' colspan=5><?php echo "IVA 5 %"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto5, 0, '', '.'); ?>
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td class='text-right' colspan=5><?php echo "Exentas"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto0, 0, '', '.'); ?>
+    </td>
     <td></td>
 </tr>
 <tr>
     <td style="font-size: 14pt;" class='text-right' colspan=5><b>TOTAL <?php echo $simbolo_moneda; ?></b></td>
-    <td style="font-size: 16pt;" class='text-right'><span class="label label-danger"><b><?php echo number_format($total_factura, 2); ?></b></span></td>
+    <td style="font-size: 16pt;" class='text-right'><span class="label label-danger"><b><?php echo number_format($total_factura, 0, '', '.'); ?></b></span></td>
     <td></td>
 </tr>
 </tbody>

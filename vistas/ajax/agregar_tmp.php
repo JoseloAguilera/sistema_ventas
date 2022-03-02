@@ -78,8 +78,12 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 $impuesto       = get_row('perfil', 'impuesto', 'id_perfil', 1);
 $nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
 $sumador_total  = 0;
-$total_iva      = 0;
-$total_impuesto = 0;
+$total_iva0      = 0;
+$total_iva5      = 0;
+$total_iva10      = 0;
+$total_impuesto0 = 0;
+$total_impuesto5 = 0;
+$total_impuesto10 = 0;
 $subtotal       = 0;
 $sql            = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
 while ($row = mysqli_fetch_array($sql)) {
@@ -100,16 +104,24 @@ while ($row = mysqli_fetch_array($sql)) {
     //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
     $sumador_total += $final_items; //Sumador
     $subtotal = $sumador_total;
-    if ($row['iva_producto'] == 1) {
+    if ($row['iva_producto'] == 10) {
         //$total_iva = iva($precio_venta);
-        $total_iva = $precio_venta;
-    } else {
-        $total_iva = $precio_venta/11;
+        $total_iva10 = $precio_venta/11;
+        $total_impuesto10 += (rebajas($total_iva10, $desc_tmp) * $cantidad);
+    } elseif ($row['iva_producto'] == 5) {
+        $total_iva5 = $precio_venta/21;
+        $total_impuesto5 += (rebajas($total_iva5, $desc_tmp) * $cantidad);
+    }else {
+        $total_iva0 = $precio_venta;
+        $total_impuesto0 += (rebajas($total_iva0, $desc_tmp) * $cantidad);
     }
-    $total_impuesto += (rebajas($total_iva, $desc_tmp) * $cantidad);
+    
+    
+    
     //$total_iva_full = rebajas($total_impuesto, $desc_tmp);
     ?>
     <tr>
+       
         <td class='text-center'><?php echo $codigo_producto; ?></td>
         <td class='text-center'><?php echo $cantidad; ?></td>
         <td><?php echo $nombre_producto; ?></td>
@@ -152,8 +164,20 @@ $total_factura = $subtotal;
     <td></td>
 </tr>
 <tr>
-    <td class='text-right' colspan=5><?php echo $nom_impuesto; ?> (<?php echo $impuesto; ?>)% </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 0, '', '.'); ?>
+    <td class='text-right' colspan=5><?php echo "IVA 10 %"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto10, 0, '', '.'); ?>
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td class='text-right' colspan=5><?php echo "IVA 5 %"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto5, 0, '', '.'); ?>
+    </td>
+    <td></td>
+</tr>
+<tr>
+    <td class='text-right' colspan=5><?php echo "Exentas"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto0, 0, '', '.'); ?>
     </td>
     <td></td>
 </tr>

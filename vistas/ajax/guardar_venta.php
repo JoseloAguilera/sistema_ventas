@@ -66,7 +66,12 @@ if (empty($_POST['id_cliente'])) {
     $impuesto      = get_row('perfil', 'impuesto', 'id_perfil', 1);
     $sumador_total = 0;
     $sum_total     = 0;
-    $t_iva         = 0;
+    $total_iva0      = 0;
+    $total_iva5      = 0;
+    $total_iva10      = 0;
+    $total_impuesto0 = 0;
+    $total_impuesto5 = 0;
+    $total_impuesto10 = 0;
     $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
     while ($row = mysqli_fetch_array($sql)) {
         $id_tmp          = $row["id_tmp"];
@@ -76,7 +81,7 @@ if (empty($_POST['id_cliente'])) {
         $desc_tmp        = $row['desc_tmp'];
         $nombre_producto = $row['nombre_producto'];
         // control del impuesto por productos.
-        if ($row['iva_producto'] == 0) {
+        if ($row['iva_producto'] == 1) {
             $p_venta   = $row['precio_tmp'];
             $p_venta_f = number_format($p_venta, 2); //Formateo variables
             $p_venta_r = str_replace(",", "", $p_venta_f); //Reemplazo las comas
@@ -94,15 +99,26 @@ if (empty($_POST['id_cliente'])) {
 
         $precio_venta   = $row['precio_tmp'];
         $costo_producto = $row['costo_producto'];
-        $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
-        $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-        $precio_total   = $precio_venta_r * $cantidad;
+        $precio_venta_f = number_format($precio_venta, 0, '', ''); //Formateo variables
+        //$precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
+        $precio_total   = $precio_venta * $cantidad;
         $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
         /*--------------------------------------------------------------------------------*/
-        $precio_total_f = number_format($final_items, 2); //Precio total formateado
-        $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
-        $sumador_total += $precio_total_r; //Sumador
+        $precio_total_f = number_format($final_items, 0, '', ''); //Precio total formateado
+        //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
+        $sumador_total += $final_items; //Sumador
         //Comprobamos que el dinero Resibido no sea menor al Totalde la factura
+        if ($row['iva_producto'] == 10) {
+            //$total_iva = iva($precio_venta);
+            $total_iva10 = $precio_venta/11;
+            $total_impuesto10 += (rebajas($total_iva10, $desc_tmp) * $cantidad);
+        } elseif ($row['iva_producto'] == 5) {
+            $total_iva5 = $precio_venta/21;
+            $total_impuesto5 += (rebajas($total_iva5, $desc_tmp) * $cantidad);
+        }else {
+            $total_iva0 = $precio_venta;
+            $total_impuesto0 += (rebajas($total_iva0, $desc_tmp) * $cantidad);
+        }
         if ($resibido < $sumador_total and $condiciones != 4) {
             echo "<script>
             swal({
@@ -115,7 +131,7 @@ if (empty($_POST['id_cliente'])) {
         }
 
         //Insert en la tabla detalle_factura
-        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$precio_total')");
+        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta','$precio_total')");
         //GURDAMOS LAS EN EL KARDEX
         $saldo_total = $cantidad * $costo_producto;
         $sql_kardex  = mysqli_query($conexion, "select * from kardex where producto_kardex='" . $id_producto . "' order by id_kardex DESC LIMIT 1");
@@ -139,10 +155,10 @@ if (empty($_POST['id_cliente'])) {
         $nums++;
     }
     // Fin de la consulta Principal
-    $subtotal         = number_format($sumador_total, 2, '.', '');
-    $total_iva        = ($subtotal * $impuesto) / 100;
-    $total_iva        = number_format($total_iva, 2, '.', '') - number_format($t_iva, 2, '.', '');
-    $total_factura    = $subtotal + $total_iva;
+    $subtotal         = number_format($sumador_total, 0, '', '');
+    //$total_iva        = ($subtotal * $impuesto) / 100;
+    //$total_iva        = number_format($total_iva, 2, '.', '') - number_format($t_iva, 2, '.', '');
+    $total_factura    = $sumador_total;
     $cambio           = $resibido - $total_factura;
     $saldo_credito    = $total_factura - $resibido;
     $camb             = number_format($cambio, 0, '', '.');

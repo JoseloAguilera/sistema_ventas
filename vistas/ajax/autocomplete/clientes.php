@@ -6,7 +6,8 @@ if (isset($_GET['term'])) {
 /* If connection to database, run sql statement. */
     if ($conexion) {
 
-        $fetch = mysqli_query($conexion, "SELECT * FROM clientes where nombre_cliente like '%" . mysqli_real_escape_string($conexion, ($_GET['term'])) . "%' LIMIT 0 ,50");
+        $termino=mysqli_real_escape_string($conexion, ($_GET['term']));
+        $fetch = mysqli_query($conexion, "SELECT * FROM clientes where nombre_cliente like '%$termino%' or fiscal_cliente like '%$termino%' LIMIT 0 ,50");
 
         /* Retrieve and store in array the results of the query.*/
         while ($row = mysqli_fetch_array($fetch)) {
