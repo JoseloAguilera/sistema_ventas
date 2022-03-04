@@ -64,7 +64,15 @@ if (empty($_POST['id_cliente'])) {
     $impuesto      = get_row('perfil', 'impuesto', 'id_perfil', 1);
     $sumador_total = 0;
     $sum_total     = 0;
-    $t_iva         = 0;
+    $total_iva0      = 0;
+    $total_iva5      = 0;
+    $total_iva10      = 0;
+    $total_impuesto0 = 0;
+    $total_impuesto5 = 0;
+    $total_impuesto10 = 0;
+    $sub_0=0;
+    $sub_5=0;
+    $sub_10=0;
     $sql           = mysqli_query($conexion, "select * from productos, tmp_cotizacion where productos.id_producto=tmp_cotizacion.id_producto and tmp_cotizacion.session_id='" . $session_id . "'");
     while ($row = mysqli_fetch_array($sql)) {
         $id_tmp          = $row["id_tmp"];
@@ -74,7 +82,7 @@ if (empty($_POST['id_cliente'])) {
         $desc_tmp        = $row['desc_tmp'];
         $nombre_producto = $row['nombre_producto'];
         // control del impuesto por productos.
-        if ($row['iva_producto'] == 0) {
+        if ($row['iva_producto'] == 1) {
             $p_venta   = $row['precio_tmp'];
             $p_venta_f = number_format($p_venta, 2); //Formateo variables
             $p_venta_r = str_replace(",", "", $p_venta_f); //Reemplazo las comas
@@ -91,23 +99,38 @@ if (empty($_POST['id_cliente'])) {
         //end impuesto
 
         $precio_venta   = $row['precio_tmp'];
-        $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
-        $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
-        $precio_total   = $precio_venta_r * $cantidad;
+        $precio_venta_f = number_format($precio_venta, 0, '', ''); //Formateo variables
+        //$precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
+        $precio_total   = $precio_venta * $cantidad;
         $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
         /*--------------------------------------------------------------------------------*/
-        $precio_total_f = number_format($final_items, 2); //Precio total formateado
-        $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
-        $sumador_total += $precio_total_r; //Sumador
+        $precio_total_f = number_format($final_items, 0, '', ''); //Precio total formateado
+        //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
+        $sumador_total += $final_items; //Sumador
+        //Comprobamos que el dinero Resibido no sea menor al Totalde la factura
+        if ($row['iva_producto'] == 10) {
+            //$total_iva = iva($precio_venta);
+            $sub_10 += $precio_venta;
+            $total_iva10 = $precio_venta/11;
+            $total_impuesto10 += (rebajas($total_iva10, $desc_tmp) * $cantidad);
+        } elseif ($row['iva_producto'] == 5) {
+            $sub_5 += $precio_venta;
+            $total_iva5 = $precio_venta/21;
+            $total_impuesto5 += (rebajas($total_iva5, $desc_tmp) * $cantidad);
+        }else {
+            $sub_0 += $precio_venta;
+            $total_iva0 = $precio_venta;
+            $total_impuesto0 += (rebajas($total_iva0, $desc_tmp) * $cantidad);
+        }
 
         //Insert en la tabla detalle_factura
-        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r')");
+        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta')");
     }
     // Fin de la consulta Principal
-    $subtotal      = number_format($sumador_total, 2, '.', '');
-    $total_iva     = ($subtotal * $impuesto) / 100;
-    $total_iva     = number_format($total_iva, 2, '.', '') - number_format($t_iva, 2, '.', '');
-    $total_factura = $subtotal + $total_iva;
+    $subtotal      = number_format($sumador_total, 0, '', '.');
+    //$total_iva     = ($subtotal * $impuesto) / 100;
+    //$total_iva     = number_format($total_iva, 2, '.', '') - number_format($t_iva, 2, '.', '');
+    $total_factura = $sumador_total;
     $insert        = mysqli_query($conexion, "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1')");
     $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
     // SI TODO ESTA CORRECTO

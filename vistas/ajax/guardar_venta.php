@@ -72,6 +72,9 @@ if (empty($_POST['id_cliente'])) {
     $total_impuesto0 = 0;
     $total_impuesto5 = 0;
     $total_impuesto10 = 0;
+    $sub_0=0;
+    $sub_5=0;
+    $sub_10=0;
     $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
     while ($row = mysqli_fetch_array($sql)) {
         $id_tmp          = $row["id_tmp"];
@@ -110,12 +113,15 @@ if (empty($_POST['id_cliente'])) {
         //Comprobamos que el dinero Resibido no sea menor al Totalde la factura
         if ($row['iva_producto'] == 10) {
             //$total_iva = iva($precio_venta);
+            $sub_10 += $precio_venta;
             $total_iva10 = $precio_venta/11;
             $total_impuesto10 += (rebajas($total_iva10, $desc_tmp) * $cantidad);
         } elseif ($row['iva_producto'] == 5) {
+            $sub_5 += $precio_venta;
             $total_iva5 = $precio_venta/21;
             $total_impuesto5 += (rebajas($total_iva5, $desc_tmp) * $cantidad);
         }else {
+            $sub_0 += $precio_venta;
             $total_iva0 = $precio_venta;
             $total_impuesto0 += (rebajas($total_iva0, $desc_tmp) * $cantidad);
         }

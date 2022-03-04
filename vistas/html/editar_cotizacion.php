@@ -166,7 +166,7 @@ include "../modal/buscar_productos_ventas.php";
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label for="fiscal">RNC/Cedula</label>
+																	<label for="fiscal">RUC | Cédula</label>
 																	<input type="text" class="form-control" autocomplete="off" id="rnc" name="rnc" disabled="true" value="<?php echo $fiscal_cliente; ?>">
 																</div>
 															</div>
@@ -184,21 +184,13 @@ include "../modal/buscar_productos_ventas.php";
 
 														</div>
 														<div class="row">
-															<div class="col-md-6">
+															<div class="col-md-12">
 																<div class="form-group">
 																	<label for="fiscal">No. Comprobante</label>
 																	<div id="outer_comprobante"></div><!-- Carga los datos ajax -->
 																</div>
 															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<div id="resultados4"></div><!-- Carga los datos ajax -->
-																</div>
-																<div id="resultados5"></div><!-- Carga los datos ajax -->
-															</div>
-														</div>
-
-
+															
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">

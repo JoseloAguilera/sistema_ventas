@@ -41,7 +41,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 						<div class="portlet">
 							<div class="portlet-heading bg-primary">
 								<h3 class="portlet-title">
-									Nueva Cotización
+									Nuevo Presupuesto
 								</h3>
 								<div class="portlet-widgets">
 									<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -123,13 +123,13 @@ include "../modal/buscar_productos_ventas.php";
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label for="fiscal">RNC/Cedula</label>
+																	<label for="fiscal">RUC | Cedula</label>
 																	<input type="text" class="form-control" autocomplete="off" id="tel1" disabled="true">
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label for="fiscal">No. Cotizacón</label>
+																	<label for="fiscal">No. Presupuesto</label>
 																	<div id="f_resultado"></div><!-- Carga los datos ajax del incremento de la fatura -->
 																</div>
 															</div>

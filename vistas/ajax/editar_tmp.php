@@ -88,6 +88,9 @@ $total_iva10      = 0;
 $total_impuesto0 = 0;
 $total_impuesto5 = 0;
 $total_impuesto10 = 0;
+$sub_0=0;
+$sub_5=0;
+$sub_10=0;
 $sql            = mysqli_query($conexion, "select * from productos, facturas_ventas, detalle_fact_ventas where facturas_ventas.id_factura=detalle_fact_ventas.id_factura and  facturas_ventas.id_factura='$id_factura' and productos.id_producto=detalle_fact_ventas.id_producto");
 while ($row = mysqli_fetch_array($sql)) {
     $id_detalle      = $row["id_detalle"];
@@ -109,12 +112,15 @@ while ($row = mysqli_fetch_array($sql)) {
     $subtotal = $sumador_total;
     if ($row['iva_producto'] == 10) {
         //$total_iva = iva($precio_venta);
+        $sub_10 += $precio_venta;
         $total_iva10 = $precio_venta/11;
         $total_impuesto10 += (rebajas($total_iva10, $desc_tmp) * $cantidad);
     } elseif ($row['iva_producto'] == 5) {
+        $sub_5 += $precio_venta;
         $total_iva5 = $precio_venta/21;
         $total_impuesto5 += (rebajas($total_iva5, $desc_tmp) * $cantidad);
     }else {
+        $sub_0 += $precio_venta;
         $total_iva0 = $precio_venta;
         $total_impuesto0 += (rebajas($total_iva0, $desc_tmp) * $cantidad);
     }
@@ -156,8 +162,18 @@ $update        = mysqli_query($conexion, "update facturas_ventas set monto_factu
 
 ?>
 <tr>
-    <td class='text-right' colspan=5>SUBTOTAL</td>
-    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 0, '', ''); ?></b></td>
+    <td class='text-right' colspan=5>SUBTOTAL EXENTAS</td>
+    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($sub_0, 0, '', '.'); ?></b></td>
+    <td></td>
+</tr>
+<tr>
+    <td class='text-right' colspan=5>SUBTOTAL 5%</td>
+    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($sub_5, 0, '', '.'); ?></b></td>
+    <td></td>
+</tr>
+<tr>
+    <td class='text-right' colspan=5>SUBTOTAL 10%</td>
+    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($sub_10, 0, '', '.'); ?></b></td>
     <td></td>
 </tr>
 <tr>
