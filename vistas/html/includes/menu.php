@@ -88,7 +88,7 @@
 									<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-bag"></i><span> Compras </span> <span class="menu-arrow"></span></a>
 									<ul class="list-unstyled">
 										<li><a href="../html/new_compra.php">Nueva Compra</a></li>
-										<li><a href="../html/bitacora_compras.php">Bitácora de Compras</a></li>
+										<li><a href="../html/bitacora_compras.php">Listado de Compras</a></li>
 									</ul>
 								</li>
 
@@ -102,16 +102,16 @@
 										</span> <span class="menu-arrow"></span></a>
 										<ul class="list-unstyled">
 											<li><a href="../html/new_venta.php">Nueva Venta</a></li>
-											<li><a href="../html/bitacora_ventas.php">Bitácora de Ventas</a></li>
+											<li><a href="../html/bitacora_ventas.php">Listado de Ventas</a></li>
 											<!--<li><a href="../html/caja.php">Caja</a></li>-->
 										</ul>
 									</li>
 									<li class="has_sub">
-										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Cotización
+										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Presupuesto
 										</span> <span class="menu-arrow"></span></a>
 										<ul class="list-unstyled">
-											<li><a href="../html/new_cotizacion.php">Nueva Cotización</a></li>
-											<li><a href="../html/bitacora_cotizacion.php">Bitácora de Cotizacíon</a></li>
+											<li><a href="../html/new_cotizacion.php">Nuevo Presupuesto</a></li>
+											<li><a href="../html/bitacora_cotizacion.php">Listado de Presupuestos</a></li>
 										</ul>
 									</li>
 										<li class="has_sub">
