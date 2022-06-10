@@ -171,8 +171,8 @@ $total_factura = $subtotal;
     <td></td>
 </tr>
 <tr>
-    <td class='text-right' colspan=5><?php echo "IVA 10 %"; ?> </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto10, 0, '', '.'); ?>
+    <td class='text-right' colspan=5><?php echo "Exentas"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto0, 0, '', '.'); ?>
     </td>
     <td></td>
 </tr>
@@ -183,8 +183,8 @@ $total_factura = $subtotal;
     <td></td>
 </tr>
 <tr>
-    <td class='text-right' colspan=5><?php echo "Exentas"; ?> </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto0, 0, '', '.'); ?>
+    <td class='text-right' colspan=5><?php echo "IVA 10 %"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto10, 0, '', '.'); ?>
     </td>
     <td></td>
 </tr>

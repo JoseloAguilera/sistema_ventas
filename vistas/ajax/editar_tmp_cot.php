@@ -182,8 +182,8 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
     <td></td>
 </tr>
 <tr>
-    <td class='text-right' colspan=5><?php echo "IVA 10 %"; ?> </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto10, 0, '', '.'); ?>
+    <td class='text-right' colspan=5><?php echo "Exentas"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto0, 0, '', '.'); ?>
     </td>
     <td></td>
 </tr>
@@ -194,11 +194,13 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
     <td></td>
 </tr>
 <tr>
-    <td class='text-right' colspan=5><?php echo "Exentas"; ?> </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto0, 0, '', '.'); ?>
+    <td class='text-right' colspan=5><?php echo "IVA 10 %"; ?> </td>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto10, 0, '', '.'); ?>
     </td>
     <td></td>
 </tr>
+
+
 <tr>
     <td style="font-size: 14pt;" class='text-right' colspan=5><b>TOTAL <?php echo $simbolo_moneda; ?></b></td>
     <td style="font-size: 16pt;" class='text-right'><span class="label label-danger"><b><?php echo number_format($total_factura, 0, '', ''); ?></b></span></td>
