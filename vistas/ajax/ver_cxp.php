@@ -67,9 +67,9 @@ $finales = 0;
                     <tr>
                         <td><label class='badge badge-purple'><?php echo $row['numero_factura']; ?></label></td>
                         <td><?php echo date("d/m/Y", strtotime($row['fecha_abono'])); ?></td>
-                        <td><?php echo $simbolo_moneda . '' . number_format($row['monto_abono'], 2); ?></td>
-                        <td><?php echo $simbolo_moneda . '' . number_format($row['abono'], 2); ?></td>
-                        <td><?php echo $simbolo_moneda . '' . number_format($row['saldo_abono'], 2); ?></td>
+                        <td><?php echo $simbolo_moneda . ' ' . number_format($row['monto_abono'], 0,"","."); ?></td>
+                        <td><?php echo $simbolo_moneda . ' ' . number_format($row['abono'], 0,"","."); ?></td>
+                        <td><?php echo $simbolo_moneda . ' ' . number_format($row['saldo_abono'], 0,"","."); ?></td>
                         <td><a class='btn btn-info btn-sm waves-effect waves-light' href="#" title="Imprimir Resibo" onclick="imprimir_abono('<?php echo $row['id_abono']; ?>');"><i class="fa fa-print"></i>
                         </a>
                         </td>

@@ -1,3 +1,3 @@
 <footer class="footer text-right">
-			2021 © ViawebPy. Derechos reservados
+			2022 © J&B Solutions. Derechos reservados
 		</footer>

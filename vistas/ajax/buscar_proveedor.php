@@ -57,7 +57,7 @@ if ($action == 'ajax') {
                 <tr  class="info">
                     <th>ID</th>
                     <th>Razón Social</th>
-                    <th># Fiscal</th>
+                    <th>RUC</th>
                     <th>Dirección</th>
                     <th>Teléfono</th>
                     <th>Estado</th>

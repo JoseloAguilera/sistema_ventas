@@ -30,10 +30,12 @@ if (empty($_POST['id_cliente'])) {
     $users             = intval($_SESSION['id_users']);
     $condiciones       = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['condiciones'], ENT_QUOTES)));
     $numero_cotizacion = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["cotizacion"], ENT_QUOTES)));
-    $numero_factura    = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["factura"], ENT_QUOTES)));
+    if(isset(($_REQUEST["factura"]))){
+            $numero_factura    = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["factura"], ENT_QUOTES)));
+        }
     $id_comp           = intval($_POST['id_comp']);
-    $tip_doc           = intval($_POST['tip_doc']);
-    $trans             = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["trans"], ENT_QUOTES)));
+    //$tip_doc           = intval($_POST['tip_doc']);
+    $trans             = null;//mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["trans"], ENT_QUOTES)));
     $resibido          = floatval($_POST['resibido']);
     $date_added        = date("Y-m-d H:i:s");
     //Operacion de Creditos
@@ -48,7 +50,7 @@ if (empty($_POST['id_cliente'])) {
     $id_factura = $rw['last'] + 1;
 // finde la ultima fatura
     //Control de la  numero_fatura y aumentamos una
-    $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_ventas ORDER BY factura DESC LIMIT 1")
+   /* $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_ventas ORDER BY factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion));
     $count = mysqli_num_rows($query_id);
 
@@ -61,7 +63,7 @@ if (empty($_POST['id_cliente'])) {
     }
 
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
-    $factura = "CFF-$buat_id";
+    $factura = "CFF-$buat_id";*/
 // fin de numero de fatura
     // consulta principal
     $nums          = 1;
@@ -86,20 +88,20 @@ if (empty($_POST['id_cliente'])) {
         $desc_tmp        = $row['desc_venta'];
         $nombre_producto = $row['nombre_producto'];
         // control del impuesto por productos.
-        if ($row['iva_producto'] == 1) {
+        /*if ($row['iva_producto'] == 1) {
             $p_venta   = $row['precio_venta'];
             $p_venta_f = number_format($p_venta, 2); //Formateo variables
             $p_venta_r = str_replace(",", "", $p_venta_f); //Reemplazo las comas
             $p_total   = $p_venta_r * $cantidad;
             $f_items   = rebajas($p_total, $desc_tmp); //Aplicando el descuento
             /*--------------------------------------------------------------------------------*/
-            $p_total_f = number_format($f_items, 2); //Precio total formateado
+         /*   $p_total_f = number_format($f_items, 2); //Precio total formateado
             $p_total_r = str_replace(",", "", $p_total_f); //Reemplazo las comas
 
             $sum_total += $p_total_r; //Sumador
             $t_iva = ($sum_total * $impuesto) / 100;
             $t_iva = number_format($t_iva, 2, '.', '');
-        }
+        }*/
         //end impuesto
 
         $precio_venta   = $row['precio_venta'];
@@ -127,16 +129,28 @@ if (empty($_POST['id_cliente'])) {
             $total_iva0 = $precio_venta;
             $total_impuesto0 += (rebajas($total_iva0, $desc_tmp) * $cantidad);
         }
+        if (!isset($numero_factura)) {
+            echo "<script>
+            swal({
+              title: 'DEBE SELECCIONAR TIPO DE COMPROBANTE',
+              text: 'Intentar Nuevamente',
+              type: 'error',
+              confirmButtonText: 'ok'
+          })</script>";
+            exit;
+
+        }
         if ($resibido < $sumador_total and $condiciones != 4) {
             echo "<script>
             swal({
-              title: 'DINERO RESIBIDO ES MENOR AL MONTO TOTAL',
+              title: 'DINERO RECIBIDO ES MENOR AL MONTO TOTAL',
               text: 'Intentar Nuevamente',
               type: 'error',
               confirmButtonText: 'ok'
           })</script>";
             exit;
         }
+        
 
         //Insert en la tabla detalle_factura
         $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta','$precio_total')");
@@ -235,7 +249,7 @@ foreach ($messages as $message) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"><i class='fa fa-edit'></i> FACTURA: <?php echo $factura; ?></h4>
+                <h4 class="modal-title" id="myModalLabel"><i class='fa fa-edit'></i> FACTURA: <?php echo $numero_factura; ?></h4>
             </div>
             <div class="modal-body" align="center">
                 <strong><h3>CAMBIO</h3></strong>

@@ -62,7 +62,7 @@ while ($row = mysqli_fetch_array($query)) {
             $nombre_producto = $row['nombre_producto'];
             $stock_producto  = $row['stock_producto'];
             $costo_producto  = $row["costo_producto"];
-            $costo_producto_f  = number_format($costo_producto, 0, '', '.');
+            $costo_producto_f  = number_format($costo_producto, 0, '', '');
             $image_path      = $row['image_path'];
             ?>
                 <tr>

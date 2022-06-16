@@ -17,7 +17,7 @@ if (isset($conexion)) {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="abono" class="control-label">Abono:</label>
-                  <input type="text" class="form-control" id="abono" name="abono" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8" required autofocus>
+                  <input type="text" class="form-control" id="abono" name="abono" autocomplete="off" maxlength="10000" required autofocus>
                 </div>
               </div>
             </div>

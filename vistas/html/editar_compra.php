@@ -114,11 +114,11 @@ include "../modal/buscar_productos_compras.php";
 																	<span class="fa fa-search"></span>
 																</button>
 															</div>
-															<div class="col-md-1">
+															<!--div class="col-md-1">
 																<button type="button" accesskey="a" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#nuevoProducto" title="Agregar Nuevo Producto">
 																	<span class="fa fa-plus"></span>
 																</button>
-															</div>
+															</div-->
 														</div>
 													</form>
 

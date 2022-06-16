@@ -27,7 +27,7 @@ while ($orderResult = $orderQuery->fetch_assoc()) {
 			<i class="mdi mdi-briefcase-check text-primary"></i>
 			<div class="wid-icon-info text-right">
 				<p class="text-muted m-b-5 font-13 font-bold text-uppercase">MONTO DE CREDITO</p>
-				<h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($credito, 2); ?></h4>
+				<h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . ' ' . number_format($credito, 0,"","."); ?></h4>
 			</div>
 		</div>
 	</div>
@@ -38,7 +38,7 @@ while ($orderResult = $orderQuery->fetch_assoc()) {
 			<i class="mdi mdi-cash-multiple text-success"></i>
 			<div class="wid-icon-info text-right">
 				<p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-				<h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($total_abono, 2); ?></h4>
+				<h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . ' ' . number_format($total_abono, 0,"","."); ?></h4>
 			</div>
 		</div>
 	</div>
@@ -50,7 +50,7 @@ while ($orderResult = $orderQuery->fetch_assoc()) {
 			<i class="mdi mdi-calendar text-pink"></i>
 			<div class="wid-icon-info text-right">
 				<p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO</p>
-				<h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($saldo, 2); ?></h4>
+				<h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . ' ' . number_format($saldo, 0,"","."); ?></h4>
 			</div>
 		</div>
 	</div>

@@ -82,7 +82,7 @@ function total_creditos()
         $totalRevenue += $orderResult['monto_factura'];
     }
 
-    echo '' . $id_moneda . '' . number_format($totalRevenue, 2) . '';
+    echo '' . $id_moneda . ' ' . number_format($totalRevenue, 0,"",".") . '';
 }
 /*--------------------------------------------------------------*/
 /* Funcion para obtener el total de Abonos a proveedores
@@ -100,7 +100,7 @@ function total_cxp()
         $total_abono += $abonoResult['abono'];
     }
 
-    echo '' . $id_moneda . '' . number_format($total_abono, 2) . '';
+    echo '' . $id_moneda . ' ' . number_format($total_abono, 0,"",".") . '';
 }
 /*--------------------------------------------------------------*/
 /* Funcion para obtener el total de Abonos a proveedores
@@ -118,7 +118,7 @@ function total_cxc()
         $total_abono += $abonoResult['abono'];
     }
 
-    echo '' . $id_moneda . '' . number_format($total_abono, 2) . '';
+    echo '' . $id_moneda . ' ' . number_format($total_abono, 0,"",".") . '';
 }
 /*--------------------------------------------------------------*/
 /* Funcion para obtener el total de Ingresos
@@ -135,7 +135,7 @@ function total_ingresos()
         $totalRevenue += $orderResult['monto_factura'];
     }
 
-    echo '' . $id_moneda . '' . number_format($totalRevenue, 2) . '';
+    echo '' . $id_moneda . ' ' . number_format($totalRevenue, 0,"",".") . '';
 }
 /*--------------------------------------------------------------*/
 /* Funcion para obtener el total de Egresos
@@ -152,7 +152,7 @@ function total_egresos()
         $totalEgreso += $orderResult['monto_factura'];
     }
 
-    echo '' . $id_moneda . '' . number_format($totalEgreso, 2) . '';
+    echo '' . $id_moneda . ' ' . number_format($totalEgreso, 0,"",".") . '';
 }
 /*--------------------------------------------------------------*/
 /* Funcion para obtener el total de Inventario Bajo
@@ -186,12 +186,12 @@ function latest_order()
         list($date, $hora) = explode(" ", $date_added);
         list($Y, $m, $d)   = explode("-", $date);
         $fecha             = $d . "-" . $m . "-" . $Y;
-        $total             = number_format($rw['monto_factura'], 2);
+        $total             = number_format($rw['monto_factura'], 0,"",".");
         ?>
         <tr>
             <td><a href="editar_venta.php?id_factura=<?php echo $id_factura; ?>" data-toggle="tooltip" title="Ver Factura"><label class='badge badge-primary'><?php echo $numero_factura; ?></label></a></td>
             <td><?php echo $fecha; ?></td>
-            <td class='text-left'><b><?php echo $id_moneda . '' . $total; ?></b></td>
+            <td class='text-left'><b><?php echo $id_moneda . ' ' . $total; ?></b></td>
         </tr>
         <?php
 
@@ -215,7 +215,7 @@ function venta_users()
         $totalRevenue += $orderResult['monto_factura'];
     }
 
-    echo '' . $id_moneda . '' . number_format($totalRevenue, 2) . '';
+    echo '' . $id_moneda . ' ' . number_format($totalRevenue, 0,"",".") . '';
 }
 /*--------------------------------------------------------------*/
 /* Calculo del Descuento

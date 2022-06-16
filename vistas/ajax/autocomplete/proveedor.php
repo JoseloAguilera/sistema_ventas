@@ -6,7 +6,8 @@ if (isset($_GET['term'])) {
 /* If connection to database, run sql statement. */
     if ($conexion) {
 
-        $fetch = mysqli_query($conexion, "SELECT * FROM proveedores where nombre_proveedor like '%" . mysqli_real_escape_string($conexion, ($_GET['term'])) . "%' LIMIT 0 ,50");
+        $fetch = mysqli_query($conexion, "SELECT * FROM proveedores where nombre_proveedor like '%".mysqli_real_escape_string($conexion, ($_GET['term'])) ."%' 
+        or fiscal_proveedor like '%".mysqli_real_escape_string($conexion, ($_GET['term'])) ."%' LIMIT 0 ,50");
 
         /* Retrieve and store in array the results of the query.*/
         while ($row = mysqli_fetch_array($fetch)) {

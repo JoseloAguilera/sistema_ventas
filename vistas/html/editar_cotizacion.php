@@ -212,7 +212,7 @@ include "../modal/buscar_productos_ventas.php";
 																<button type="button" class="btn btn-danger waves-effect waves-light" aria-haspopup="true" aria-expanded="false" id="btn_actualizar"><span class="fa fa-refresh"></span> Actualizar</button>
 															</div>
 															<div class="col-md-6">
-																<button type="button" class="btn btn-default waves-effect waves-light" id="btn_guardar"><span class="ti-shopping-cart-full"></span> Facturar</button>
+																<button type="submit" class="btn btn-default waves-effect waves-light" id="btn_guardar"><span class="ti-shopping-cart-full"></span> Facturar</button>
 															</div>
 														</div>
 													</form>

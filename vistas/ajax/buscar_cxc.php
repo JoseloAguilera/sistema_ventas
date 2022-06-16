@@ -1,9 +1,5 @@
 <?php
-/*-------------------------
-Autor: Delmar Lopez
-Web: www.softwys.com
-Mail: softwysop@gmail.com
----------------------------*/
+
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
@@ -25,7 +21,7 @@ if ($action == 'ajax') {
     $sWhere = "";
     $sWhere .= " WHERE creditos.id_cliente=clientes.id_cliente and creditos.id_vendedor=users.id_users";
     if ($_GET['q'] != "") {
-        $sWhere .= " and  (clientes.nombre_cliente like '%$q%' or creditos.numero_factura like '%$q%')";
+        $sWhere .= " and  (clientes.nombre_cliente like '%$q%' or clientes.fiscal_cliente like '%$q%' or creditos.numero_factura like '%$q%')";
 
     }
 
@@ -33,7 +29,7 @@ if ($action == 'ajax') {
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
-    $per_page  = 10; //how much records you want to show
+    $per_page  = 15; //how much records you want to show
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
@@ -56,8 +52,8 @@ if ($action == 'ajax') {
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Estado</th>
-                <th class='text-center'>Crédito</th>
-                <th class='text-center'>Saldo</th>
+                <th class='text-left'>Crédito</th>
+                <th class='text-left'>Saldo</th>
                 <th class='text-center'>Acciones</th>
 
             </tr>
@@ -85,8 +81,8 @@ while ($row = mysqli_fetch_array($query)) {
                          <td><?php echo $fecha; ?></td>
                          <td><?php echo $nombre_cliente; ?></td>
                          <td><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
-                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
-                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($saldo, 2); ?></b></td>
+                         <td class='text-left'><b><?php echo $simbolo_moneda . ' ' . number_format($total_venta, 0,"","."); ?></b></td>
+                         <td class='text-left'><b><?php echo $simbolo_moneda . ' ' . number_format($saldo, 0,"","."); ?></b></td>
                          <td class="text-center">
                           <div class="btn-group dropdown">
                             <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>

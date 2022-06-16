@@ -84,20 +84,20 @@ if (empty($_POST['id_cliente'])) {
         $desc_tmp        = $row['desc_tmp'];
         $nombre_producto = $row['nombre_producto'];
         // control del impuesto por productos.
-        if ($row['iva_producto'] == 1) {
+        /*if ($row['iva_producto'] == 1) {
             $p_venta   = $row['precio_tmp'];
             $p_venta_f = number_format($p_venta, 2); //Formateo variables
             $p_venta_r = str_replace(",", "", $p_venta_f); //Reemplazo las comas
             $p_total   = $p_venta_r * $cantidad;
             $f_items   = rebajas($p_total, $desc_tmp); //Aplicando el descuento
             /*--------------------------------------------------------------------------------*/
-            $p_total_f = number_format($f_items, 2); //Precio total formateado
+         /*   $p_total_f = number_format($f_items, 2); //Precio total formateado
             $p_total_r = str_replace(",", "", $p_total_f); //Reemplazo las comas
 
             $sum_total += $p_total_r; //Sumador
             $t_iva = ($sum_total * $impuesto) / 100;
             $t_iva = number_format($t_iva, 2, '.', '');
-        }
+        }*/
         //end impuesto
 
         $precio_venta   = $row['precio_tmp'];

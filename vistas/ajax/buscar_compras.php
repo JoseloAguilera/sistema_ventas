@@ -86,7 +86,7 @@ while ($row = mysqli_fetch_array($query)) {
                          <td><?php echo $nombre_proveedor; ?></td>
                          <td><?php echo $nombre_vendedor; ?></td>
                          <td><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
-                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
+                         <td class='text-left'><b><?php echo $simbolo_moneda . ' ' . number_format($total_venta, 0,"" ,"." ); ?></b></td>
                          <td class="text-center">
                           <div class="btn-group dropdown">
                             <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>

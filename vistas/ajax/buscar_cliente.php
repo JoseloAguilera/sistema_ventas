@@ -57,6 +57,7 @@ if ($action == 'ajax') {
                 <tr  class="info">
                     <th>ID</th>
                     <th>Nombre</th>
+                    <th>RUC | CEDULA</th>
                     <th>Teléfono</th>
                     <th>Email</th>
                     <th>Estado</th>
@@ -95,6 +96,7 @@ while ($row = mysqli_fetch_array($query)) {
                     <tr>
                         <td><span class="badge badge-purple"><?php echo $id_cliente; ?></span></td>
                         <td><?php echo $nombre_cliente; ?></td>
+                        <td><?php echo $fiscal_cliente; ?></td>
                         <td ><?php echo $telefono_cliente; ?></td>
                         <td><?php echo $email_cliente; ?></td>
                         <td><?php echo $estado; ?></td>

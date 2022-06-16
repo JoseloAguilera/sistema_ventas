@@ -53,7 +53,7 @@ if ($login->isUserLoggedIn() == true) {
 
         <div class="wrapper-page">
 
-            <div align="center">
+            <div align-items="center">
                 <img src="img/logo.png" class="img-responsive" alt="profile-image" width="400px" height="100px">
             </div><br>
 

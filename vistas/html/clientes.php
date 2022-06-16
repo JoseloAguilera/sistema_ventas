@@ -119,7 +119,7 @@ if ($permisos_editar == 1) {
 		<section class="content">
 			<div class="alert alert-danger" align="center">
 				<h3>Acceso denegado! </h3>
-				<p>No cuentas con los permisos necesario para acceder a este módulo.</p>
+				<p>No cuentas con los permisos necesarios para acceder a este módulo.</p>
 			</div>
 		</section>
 		<?php
