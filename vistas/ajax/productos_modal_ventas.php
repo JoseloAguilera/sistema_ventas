@@ -63,6 +63,7 @@ while ($row = mysqli_fetch_array($query)) {
             $stock_producto  = $row['stock_producto'];
             $precio_venta    = $row["valor1_producto"];
             $precio_venta    = number_format($precio_venta, 0, '', '');
+            $precio_costo    = $row['costo_producto'];
             $image_path      = $row['image_path'];
             ?>
                     <tr>
@@ -86,8 +87,9 @@ if ($image_path == null) {
                         </div>
                         </td>
                         <td class='col-xs-2' width="15%"><div class="pull-right">
-                        <input type="text" class="form-control" style="text-align:right" id="precio_venta_<?php echo $id_producto; ?>"  value="<?php echo $precio_venta; ?>" >
+                        <input type="text" class="form-control txt_price" style="text-align:right" id="precio_venta_<?php echo $id_producto; ?>"  value="<?php echo $precio_venta; ?>" >
                         </div></td>
+                        <input type="hidden" id="precio_costo_<?php echo $id_producto; ?>"  value="<?php echo $precio_costo; ?>" >
                         <td class='text-center'>
                         <a class='btn btn-success' href="#" title="Agregar a Factura" onclick="agregar('<?php echo $id_producto ?>')"><i class="fa fa-plus"></i>
                         </a>

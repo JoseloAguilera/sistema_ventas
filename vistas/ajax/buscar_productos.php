@@ -119,9 +119,9 @@ while ($row = mysqli_fetch_array($query)) {
                 <input type="hidden" value="<?php echo $status_producto; ?>" id="estado<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo number_format($costo_producto, 0, '', '.'); ?>" id="costo_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $utilidad_producto; ?>" id="utilidad_producto<?php echo $id_producto; ?>">
-                <input type="hidden" value="<?php echo number_format($precio_producto, 0, '', '.'); ?>" id="precio_producto<?php echo $id_producto; ?>">
-                <input type="hidden" value="<?php echo number_format($precio_mayoreo, 0, '', '.'); ?>" id="precio_mayoreo<?php echo $id_producto; ?>">
-                <input type="hidden" value="<?php echo number_format($precio_especial, 0, '', '.'); ?>" id="precio_especial<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo number_format($precio_producto, 0, '', ''); ?>" id="precio_producto<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo number_format($precio_mayoreo, 0, '', ''); ?>" id="precio_mayoreo<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo number_format($precio_especial, 0, '', ''); ?>" id="precio_especial<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $id_imp_producto; ?>" id="id_imp_producto<?php echo $id_producto; ?>">
                 <tr>
                     <td><span class="badge badge-purple"><?php echo $id_producto; ?></span></td>
@@ -139,10 +139,10 @@ if ($image_path == null) {
                     <td><?php echo $codigo_producto; ?></td>
                     <td ><?php echo $nombre_producto; ?></td>
                     <td class='text-center'><?php echo stock($stock_producto); ?></td>
-                    <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($costo_producto, 0, '', '.'); ?></span></td>
-                    <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_producto, 0,'' ,'.') ; ?></span></td>
-                    <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_mayoreo, 0,'' ,'.'); ?></span></td>
-                    <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_especial, 0,'' ,'.'); ?></span></td>
+                    <td><span class='pull-left'><?php echo $simbolo_moneda . ' ' . number_format($costo_producto, 0, '', '.'); ?></span></td>
+                    <td><span class='pull-left'><?php echo $simbolo_moneda . ' ' . number_format($precio_producto, 0,'' ,'.') ; ?></span></td>
+                    <td><span class='pull-left'><?php echo $simbolo_moneda . ' ' . number_format($precio_mayoreo, 0,'' ,'.'); ?></span></td>
+                    <td><span class='pull-left'><?php echo $simbolo_moneda . ' ' . number_format($precio_especial, 0,'' ,'.'); ?></span></td>
                     <td><?php echo $estado; ?></td>
                     <td><?php echo $date_added; ?></td>
                     <td >

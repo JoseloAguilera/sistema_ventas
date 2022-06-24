@@ -39,6 +39,8 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 		<!-- Start content -->
 		<div class="content">
 			<div class="container">
+				<?php// var_dump($permisos_eliminar);	?>
+				<input type="hidden" id="permiso" value="<?php echo $permisos_eliminar; ?>">
 				<?php if ($permisos_ver == 1) {
     ?>
 					<div class="col-lg-12">

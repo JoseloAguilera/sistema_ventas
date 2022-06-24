@@ -131,18 +131,19 @@ while ($row = mysqli_fetch_array($sql)) {
         <td class='text-center'><?php echo $codigo_producto; ?></td>
         <td class='text-center'><?php echo $cantidad; ?></td>
         <td><?php echo $nombre_producto; ?></td>
+        
         <td class='text-center'>
             <div class="input-group">
-                <select id="<?php echo $id_tmp; ?>" class="form-control employee_id">
-                    <?php
+                <select id="<?php echo $id_tmp; ?>" class="form-control employee_id" onchange="this.nextElementSibling.value=this.value">
+                <?php
 $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
     while ($rw1 = mysqli_fetch_array($sql1)) {
         ?>
-                        <option selected disabled value="<?php echo $precio_venta ?>"><?php echo number_format($precio_venta, 0,'','.'); ?></option>
+                    <option selected disabled value="<?php echo $precio_venta ?>"><?php echo number_format($precio_venta, 0,'','.'); ?></option>
                         <option value="<?php echo $rw1['valor1_producto'] ?>">PV <?php echo number_format($rw1['valor1_producto'], 0,'','.'); ?></option>
                         <option value="<?php echo $rw1['valor2_producto'] ?>">PM <?php echo number_format($rw1['valor2_producto'], 0,'','.'); ?></option>
                         <option value="<?php echo $rw1['valor3_producto'] ?>">PE <?php echo number_format($rw1['valor3_producto'], 0,'','.'); ?></option>
-                        <?php
+                    <?php
 }
     ?>
                 </select>
@@ -205,8 +206,20 @@ $total_factura = $subtotal;
 </tbody>
 </table>
 </div>
+<?php 
+//Inicia Control de Permisos
+include "../permisos.php";
+$user_id = $_SESSION['id_users'];
+get_cadena($user_id);
+$modulo = "Ventas";
+permisos($modulo, $cadena_permisos);
+//Finaliza Control de Permisos
+//var_dump($permisos_eliminar);
+?>
+<input type="hidden" id="permiso" value="<?php echo $permisos_eliminar; ?>">
 <script>
     $(document).ready(function () {
+        permiso = document.getElementById('permiso').value;
         $('.txt_desc').off('blur');
         $('.txt_desc').on('blur',function(event){
             var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -214,11 +227,22 @@ $total_factura = $subtotal;
             id_tmp = $(this).attr("id");
             desc = $(this).val();
              //Inicia validacion
-             if (isNaN(desc)) {
-                $.Notification.notify('error','bottom center','ERROR', 'DIGITAR UN DESCUENTO VALIDO')
-                $(this).focus();
-                return false;
-            }
+             
+             //console.log(permiso);
+             if(permiso == "1"){
+                if (isNaN(desc)) {
+                    $.Notification.notify('error','bottom center','ERROR', 'DIGITAR UN DESCUENTO VALIDO')
+                    $(this).focus();
+                    return false;
+                }
+             }else{
+                if (isNaN(desc) || desc > 20) {
+                    $.Notification.notify('error','bottom center','ERROR', 'DIGITAR UN DESCUENTO VALIDO')
+                    $(this).focus();
+                    return false;
+                }
+             }
+             
     //Fin validacion
     $.ajax({
         type: "POST",

@@ -24,6 +24,9 @@ function load(page) {
 function agregar(id) {
     var precio_venta = document.getElementById('precio_venta_' + id).value;
     var cantidad = document.getElementById('cantidad_' + id).value;
+    var costo = document.getElementById('precio_costo_' + id).value;
+    precio_costo = parseInt(costo, 10);
+   // console.log(precio_costo);
     //Inicia validacion
     if (isNaN(cantidad)) {
         $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO')
@@ -32,6 +35,11 @@ function agregar(id) {
     }
     if (isNaN(precio_venta)) {
         $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'EL PRECIO NO ES UN NUMERO, INTENTAR DE NUEVO')
+        document.getElementById('precio_venta_' + id).focus();
+        return false;
+    }
+    if (precio_venta < (precio_costo+(precio_costo*0.1))) {
+        $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'EL PRECIO ES MUY BAJO, INTENTAR DE NUEVO')
         document.getElementById('precio_venta_' + id).focus();
         return false;
     }
