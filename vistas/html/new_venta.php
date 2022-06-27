@@ -313,15 +313,15 @@ function printFactura(id_factura) {
 			},
 			dataType: 'text',
 			success: function(response) {
-				var mywindow = window.open('', 'Stock Management System', 'height=400,width=600');
+				var mywindow = window.open('', 'Stock Management System', 'height=800,width=1200');
 				mywindow.document.write('<html><head><title>Facturación</title>');
 				mywindow.document.write('</head><body>');
 				mywindow.document.write(response);
 				mywindow.document.write('</body></html>');
                 mywindow.document.close(); // necessary for IE >= 10
                 mywindow.focus(); // necessary for IE >= 10
-                mywindow.print();
-                mywindow.close();
+               // mywindow.print();
+               // mywindow.close();
             } // /success function
 
         }); // /ajax function to fetch the printable order

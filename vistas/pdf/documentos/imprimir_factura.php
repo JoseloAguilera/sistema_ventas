@@ -137,9 +137,16 @@ if ($condiciones == 1) {echo "Efectivo";} elseif ($condiciones == 2) {echo "Cheq
         <?php
 $nums          = 1;
 $impuesto      = get_row('perfil', 'impuesto', 'id_perfil', 1);
-$sumador_total = 0;
-$sum_total     = 0;
-$t_iva         = 0;
+$sumador_total  = 0;
+$total_iva0      = 0;
+$total_iva5      = 0;
+$total_iva10      = 0;
+$total_impuesto0 = 0;
+$total_impuesto5 = 0;
+$total_impuesto10 = 0;
+$sub_0=0;
+$sub_5=0;
+$sub_10=0;
 $sql           = mysqli_query($conexion, "select * from productos, detalle_factura, facturas where productos.id_producto=detalle_factura.id_producto and detalle_factura.numero_factura=facturas.numero_factura and facturas.id_factura='" . $id_factura . "'");
 
 while ($row = mysqli_fetch_array($sql)) {
@@ -148,7 +155,7 @@ while ($row = mysqli_fetch_array($sql)) {
     $cantidad        = $row['cantidad'];
     $nombre_producto = $row['nombre_producto'];
 // control del impuesto por productos.
-    if ($row['iva_producto'] == 0) {
+    /*if ($row['iva_producto'] == 0) {
         $p_venta   = $row['precio_venta'];
         $p_venta_f = number_format($p_venta, 2); //Formateo variables
         $p_venta_r = str_replace(",", "", $p_venta_f); //Reemplazo las comas
@@ -159,15 +166,41 @@ while ($row = mysqli_fetch_array($sql)) {
         $sum_total += $p_total_r; //Sumador
         $t_iva = ($sum_total * $impuesto) / 100;
         $t_iva = number_format($t_iva, 2, '.', '');
-    }
+    }*/
     //end impuesto
-    $precio_venta   = $row['precio_venta'];
+    /*$precio_venta   = $row['precio_venta'];
     $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
     $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
     $precio_total   = $precio_venta_r * $cantidad;
     $precio_total_f = number_format($precio_total, 2); //Precio total formateado
     $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
-    $sumador_total += $precio_total_r; //Sumador
+    $sumador_total += $precio_total_r; //Sumador*/
+    
+    $precio_venta   = $row['precio_venta'];
+    $precio_venta_f = number_format($precio_venta, 0, '', ''); //Formateo variables
+    //$precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
+    $precio_total   = $precio_venta * $cantidad;
+    //$final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
+    /*--------------------------------------------------------------------------------*/
+    $precio_total_f = number_format($final_items, 0, '', ''); //Precio total formateado
+    //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
+    //$sumador_total += $final_items; //Sumador
+    $sumador_total += $precio_total; //Sumador
+    $subtotal = $sumador_total;
+    if ($row['iva_producto'] == 10) {
+        //$total_iva = iva($precio_venta);
+        $sub_10 += $precio_venta;
+        $total_iva10 = $precio_venta/11;
+        $total_impuesto10 += ($total_iva10 * $cantidad);
+    } elseif ($row['iva_producto'] == 5) {
+        $sub_5 += $precio_venta;
+        $total_iva5 = $precio_venta/21;
+        $total_impuesto5 += ($total_iva5 * $cantidad);
+    }else {
+        $sub_0 += $precio_venta;
+        $total_iva0 = $precio_venta;
+        $total_impuesto0 += ($total_iva0 * $cantidad);
+    }
     if ($nums % 2 == 0) {
         $clase = "clouds";
     } else {
@@ -178,8 +211,8 @@ while ($row = mysqli_fetch_array($sql)) {
     <tr>
         <td class='<?php echo $clase; ?>' style="width: 10%; text-align: center"><?php echo $cantidad; ?></td>
         <td class='<?php echo $clase; ?>' style="width: 60%; text-align: left"><?php echo $nombre_producto; ?></td>
-        <td class='<?php echo $clase; ?>' style="width: 15%; text-align: right"><?php echo $simbolo_moneda . '' . $precio_venta_f; ?></td>
-        <td class='<?php echo $clase; ?>' style="width: 15%; text-align: right"><?php echo $simbolo_moneda . '' . $precio_total_f; ?></td>
+        <td class='<?php echo $clase; ?>' style="width: 15%; text-align: right"><?php echo $simbolo_moneda . ' ' . $precio_venta_f; ?></td>
+        <td class='<?php echo $clase; ?>' style="width: 15%; text-align: right"><?php echo $simbolo_moneda . ' ' . $precio_total_f; ?></td>
 
     </tr>
 
@@ -187,23 +220,33 @@ while ($row = mysqli_fetch_array($sql)) {
 
     $nums++;
 }
-$impuesto      = get_row('perfil', 'impuesto', 'id_perfil', 1);
-$subtotal      = number_format($sumador_total, 2, '.', '');
-$total_iva     = ($subtotal * $impuesto) / 100;
-$total_iva     = number_format($total_iva, 2, '.', '') - number_format($t_iva, 2, '.', '');
-$total_factura = $subtotal + $total_iva;
+
+$total_factura = $subtotal;
 ?>
 
 <tr>
-    <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL <?php echo $simbolo_moneda; ?> </td>
-    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($subtotal, 2); ?></td>
+    <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL EXENTAS <?php echo $simbolo_moneda; ?> </td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_0, 0, '.', ''); ?></td>
 </tr>
 <tr>
-    <td colspan="3" style="widtd: 85%; text-align: right;">IVA (<?php echo $impuesto; ?>)% <?php echo $simbolo_moneda; ?> </td>
-    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_iva, 2); ?></td>
-</tr><tr>
+    <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL 5% <?php echo $simbolo_moneda; ?> </td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_5, 0, '.', ''); ?></td>
+</tr>
+<tr>
+    <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL 10% <?php echo $simbolo_moneda; ?> </td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_10, 0, '.', ''); ?></td>
+</tr>
+<tr>
+    <td colspan="3" style="widtd: 85%; text-align: right;">IVA 5% (<?php echo $impuesto; ?>)% <?php echo $simbolo_moneda; ?> </td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_impuesto5, 0, '.', ''); ?></td>
+</tr>
+<tr>
+    <td colspan="3" style="widtd: 85%; text-align: right;">IVA 10% (<?php echo $impuesto; ?>)% <?php echo $simbolo_moneda; ?> </td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_impuesto10, 0, '.', ''); ?></td>
+</tr>
+<tr>
 <td colspan="3" style="widtd: 85%; text-align: right;">TOTAL <?php echo $simbolo_moneda; ?> </td>
-<td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_factura, 2); ?></td>
+<td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_factura, 0, '.', ''); ?></td>
 </tr>
 </table>
 

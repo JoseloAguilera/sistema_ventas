@@ -20,10 +20,9 @@ if ($conexion) {
 
             <td style="width: 25%; color: #444444;">
                 <img style="width: 100%;" src="./<?php echo $logo_url; ?>" alt="Logo"><br>
-
             </td>
-            <td style="width: 45%; color: #34495e;font-size:12px;text-align:center">
-                <span style="color: #34495e;font-size:14px;font-weight:bold"><?php echo $bussines_name; ?></span>
+            <td style="width: 45%; color: #34495e;font-size:12px;text-align:left;">
+                <span style="color: #34495e;font-size:18px;font-weight:bold"><?php echo $bussines_name; ?></span>
                 <br><?php echo $address . ', ' . $city . ', ' . $state; ?><br>
                 Teléfono: <?php echo $phone; ?><br>
                 Email: <?php echo $email; ?>
