@@ -74,7 +74,7 @@ if ($count == 1) {
 <page pageset='new' backtop='10mm' backbottom='10mm' backleft='20mm' backright='20mm' style="font-size: 11pt; font-family: arial" footer='page'>
 <?php include "encabezado_factura.php";?>
     <br>
-    <table cellspacing="0" style="width: 50%; text-align: left; font-size: 11pt; border: 1px solid #0A122A;-moz-border-radius: 13px;-webkit-border-radius: 12px;padding: 10px;">
+    <table cellspacing="0" style="width: 50%; text-align: left; font-size: 11pt; border: 1px solid #0A122A;-moz-border-radius: 13px;-webkit-border-radius: 12px;padding: 10px;vertical-align:middle !important;">
         <tr>
             <td style="width:50%;" class='midnight-blue'>FACTURA </td>
         </tr>
@@ -151,14 +151,14 @@ while ($row = mysqli_fetch_array($sql)) {
     $cantidad        = $row['cantidad'];
     $desc_tmp        = $row['desc_venta'];
     $nombre_producto = $row['nombre_producto'];
-// control del impuesto por productos.
+
 $precio_venta   = $row['precio_venta'];
-$precio_venta_f = number_format($precio_venta, 0, '.', ''); //Formateo variables
+$precio_venta_f = number_format($precio_venta, 0, '', '.'); //Formateo variables
 //$precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
 $precio_total   = $precio_venta * $cantidad;
 $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
 /*--------------------------------------------------------------------------------*/
-$precio_total_f = number_format($final_items, 0, '.', ''); //Precio total formateado
+$precio_total_f = number_format($final_items, 0, '', '.'); //Precio total formateado
 //$precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
 //$sumador_total += $final_items; //Sumador
 $sumador_total += $final_items; //Sumador
@@ -200,28 +200,39 @@ if ($row['iva_producto'] == 10) {
 $total_factura = $subtotal;
 ?>
 <tr>
+    <td><br></td>
+</tr>
+<tr>
+    <td><br></td>
+</tr><tr>
+    <td><br></td>
+</tr>
+</tr><tr>
+    <td><br></td>
+</tr>
+<tr>
     <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL EXENTAS <?php echo $simbolo_moneda; ?> </td>
-    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_0, 0, '.', ''); ?></td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_0, 0, '', '.'); ?></td>
 </tr>
 <tr>
     <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL 5% <?php echo $simbolo_moneda; ?> </td>
-    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_5, 0, '.', ''); ?></td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_5, 0, '', '.'); ?></td>
 </tr>
 <tr>
     <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL 10% <?php echo $simbolo_moneda; ?> </td>
-    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_10, 0, '.', ''); ?></td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($sub_10, 0, '', '.'); ?></td>
 </tr>
 <tr>
     <td colspan="3" style="widtd: 85%; text-align: right;">IVA 5% (<?php echo $impuesto; ?>)% <?php echo $simbolo_moneda; ?> </td>
-    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_impuesto5, 0, '.', ''); ?></td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_impuesto5, 0, '', '.'); ?></td>
 </tr>
 <tr>
     <td colspan="3" style="widtd: 85%; text-align: right;">IVA 10% (<?php echo $impuesto; ?>)% <?php echo $simbolo_moneda; ?> </td>
-    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_impuesto10, 0, '.', ''); ?></td>
+    <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_impuesto10, 0, '', '.'); ?></td>
 </tr>
 <tr>
 <td colspan="3" style="widtd: 85%; text-align: right;">TOTAL <?php echo $simbolo_moneda; ?> </td>
-<td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_factura, 0, '.', ''); ?></td>
+<td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_factura, 0, '', '.'); ?></td>
 </tr>
 </table><br>
 
