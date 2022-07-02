@@ -11,7 +11,8 @@ $count = mysqli_num_rows($query_id);
 if ($count != 0) {
 
     $data_id = mysqli_fetch_assoc($query_id);
-    $codigo  = $data_id['codigo'] + 1;
+    //$codigo  = $data_id['codigo'] + 1;
+    $codigo = 000;
 } else {
     $codigo = 1;
 }

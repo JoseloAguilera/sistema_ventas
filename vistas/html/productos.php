@@ -16,7 +16,8 @@ permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 $count      = mysqli_query($conexion, "select MAX(codigo_producto) as codigo from productos");
 $rw         = mysqli_fetch_array($count);
-$product_id = $rw['codigo'] + 1;
+//$product_id = $rw['codigo'] + 1;
+$product_id = 0+1;
 //consulta para elegir el impuesto en la modal
 $query    = $conexion->query("select * from impuestos");
 $impuesto = array();

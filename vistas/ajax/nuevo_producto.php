@@ -104,10 +104,18 @@ if (empty($_POST['codigo'])) {
     $saldo_total    = $stock * $costo;
     $sql_kardex     = mysqli_query($conexion, "select * from kardex where producto_kardex='" . $id_producto . "' order by id_kardex DESC LIMIT 1");
     $rww            = mysqli_fetch_array($sql_kardex);
-    $cant_saldo     = $rww['cant_saldo'] + $stock;
-    $saldo_full     = ($rww['total_saldo'] + $saldo_total);
-    $costo_promedio = ($rww['total_saldo'] + $saldo_total) / $cant_saldo;
-    $tipo           = 5;
+    if($rww == null){
+        $cant_saldo     =  $stock;
+        $saldo_full     =  $saldo_total;
+        $costo_promedio =  $saldo_total / $cant_saldo;
+        $tipo           = 5;
+    }else{
+        $cant_saldo     = $rww['cant_saldo'] + $stock;
+        $saldo_full     = ($rww['total_saldo'] + $saldo_total);
+        $costo_promedio = ($rww['total_saldo'] + $saldo_total) / $cant_saldo;
+        $tipo           = 5;
+    }
+    
 
     guardar_entradas($date_added, $id_producto, $stock, $costo, $saldo_total, $cant_saldo, $costo_promedio, $saldo_full, $date_added, $users, $tipo);
 //var_dump($query_new_insert);
