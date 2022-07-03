@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE IF NOT EXISTS `cargo` (
   `id_cargo` int NOT NULL AUTO_INCREMENT,
   `nombre_cargo` varchar(255) NOT NULL,
-  `estado_cargo` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `estado_cargo` varchar(11) CHARACTER SET utf8mb4 NOT NULL,
   PRIMARY KEY (`id_cargo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1036,7 +1036,7 @@ CREATE TABLE IF NOT EXISTS `tmp_compra` (
   `costo_tmp` double(8,2) DEFAULT NULL,
   `session_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_tmp`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla sist_ventas.tmp_compra: 6 rows
 /*!40000 ALTER TABLE `tmp_compra` DISABLE KEYS */;
@@ -1057,7 +1057,7 @@ CREATE TABLE IF NOT EXISTS `tmp_cotizacion` (
   `cantidad_tmp` double NOT NULL,
   `precio_tmp` double DEFAULT NULL,
   `desc_tmp` int NOT NULL,
-  `session_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `session_id` varchar(100) NOT NULL,
   PRIMARY KEY (`id_tmp`)
 ) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

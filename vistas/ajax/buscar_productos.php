@@ -117,7 +117,7 @@ while ($row = mysqli_fetch_array($query)) {
                 <input type="hidden" value="<?php echo $stock_producto; ?>" id="stock_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $stock_min_producto; ?>" id="stock_min_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $status_producto; ?>" id="estado<?php echo $id_producto; ?>">
-                <input type="hidden" value="<?php echo number_format($costo_producto, 0, '', '.'); ?>" id="costo_producto<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo number_format($costo_producto, 0, '', ''); ?>" id="costo_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $utilidad_producto; ?>" id="utilidad_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo number_format($precio_producto, 0, '', ''); ?>" id="precio_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo number_format($precio_mayoreo, 0, '', ''); ?>" id="precio_mayoreo<?php echo $id_producto; ?>">

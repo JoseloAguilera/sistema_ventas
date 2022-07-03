@@ -287,13 +287,13 @@ if ($permisos_editar == 1) {
 		function reporte_excel(){
 			var q=$("#q").val();
 			window.location.replace("../excel/rep_productos.php?q="+q);
-    //VentanaCentrada('../excel/rep_gastos.php?daterange='+daterange+"&employee_id="+employee_id,'Reporte','','500','25','true');+"&tipo="+tipo
-}
-function reporte(){
-		var daterange=$("#range").val();
-		var categoria=$("#categoria").val();
-		VentanaCentrada('../pdf/documentos/rep_productos.php?daterange='+daterange+"&categoria="+categoria,'Reporte','','800','600','true');
-	}
+    	//VentanaCentrada('../excel/rep_gastos.php?daterange='+daterange+"&employee_id="+employee_id,'Reporte','','500','25','true');+"&tipo="+tipo
+		}
+		function reporte(){
+			var daterange=$("#range").val();
+			var categoria=$("#categoria").val();
+			VentanaCentrada('../pdf/documentos/rep_productos.php?daterange='+daterange+"&categoria="+categoria,'Reporte','','800','600','true');
+		}
 </script>
 <?php require 'includes/footer_end.php'
 ?>
