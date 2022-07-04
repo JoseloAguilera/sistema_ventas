@@ -102,11 +102,12 @@ if (isset($conexion)) {
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="mod_impuesto" class="control-label">Impuesto:</label>
-											<select class="form-control" id="mod_impuesto" name="mod_impuesto" required>
+											<label for="impuesto" class="control-label">Impuesto:</label>
+											<select class="form-control" id="impuesto" name="impuesto" required>
 												<option value="">-- Selecciona --</option>
-												<option value="0" selected>Incluido</option>
-												<option value="1">No incluido</option>
+												<option value="10" selected>IVA 10%</option>
+												<option value="5">IVA 5%</option>
+												<option value="0">Exentas</option>
 											</select>
 										</div>
 									</div>

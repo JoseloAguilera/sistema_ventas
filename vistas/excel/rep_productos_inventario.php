@@ -36,10 +36,10 @@ if ($resultado->num_rows > 0) {
         ->setDescription("Reporte de Productos")
         ->setKeywords("reporte productos")
         ->setCategory("Reporte excel");
-    $tituloReporte   = "Reporte de Productos";
-    $titulosColumnas = array('ID', 'CODIGO', 'NOMBRE', 'EXISTENCIA', 'COSTO', 'P.VENTA', 'P.MAYOREO', 'P.ESPECIAL', 'CATEGORIA', 'PROVEEDOR');
+    $tituloReporte   = "Inventario";
+    $titulosColumnas = array('ID', 'CODIGO', 'NOMBRE', 'EXISTENCIA', 'CONTADO');
     $objPHPExcel->setActiveSheetIndex(0)
-        ->mergeCells('A1:J1');
+        ->mergeCells('A1:E1');
     // Se agregan los titulos del reporte
     $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A1', $tituloReporte)
@@ -47,12 +47,7 @@ if ($resultado->num_rows > 0) {
         ->setCellValue('B3', $titulosColumnas[1])
         ->setCellValue('C3', $titulosColumnas[2])
         ->setCellValue('D3', $titulosColumnas[3])
-        ->setCellValue('E3', $titulosColumnas[4])
-        ->setCellValue('F3', $titulosColumnas[5])
-        ->setCellValue('G3', $titulosColumnas[6])
-        ->setCellValue('H3', $titulosColumnas[7])
-        ->setCellValue('I3', $titulosColumnas[8])
-        ->setCellValue('J3', $titulosColumnas[9]);
+        ->setCellValue('E3', $titulosColumnas[4]); 
     //Se agregan los datos de los alumnos
     $i = 4;
     while ($fila = $resultado->fetch_array()) {
@@ -62,12 +57,7 @@ if ($resultado->num_rows > 0) {
             ->setCellValue('B' . $i, $fila['codigo_producto'])
             ->setCellValue('C' . $i, $fila['nombre_producto'])
             ->setCellValue('D' . $i, $fila['stock_producto'])
-            ->setCellValue('E' . $i, $fila['costo_producto'])
-            ->setCellValue('F' . $i, $fila['valor1_producto'])
-            ->setCellValue('G' . $i, $fila['valor2_producto'])
-            ->setCellValue('H' . $i, $fila['valor3_producto'])
-            ->setCellValue('I' . $i, $fila['nombre_linea'])
-            ->setCellValue('J' . $i, $fila['nombre_proveedor']);
+            ->setCellValue('E' . $i, "");
         $i++;
     }
     $estiloTituloReporte = array(
@@ -159,20 +149,20 @@ if ($resultado->num_rows > 0) {
                 ),
             ),
         ));
-    $objPHPExcel->getActiveSheet()->getStyle('A1:J1')->applyFromArray($estiloTituloReporte);
-    $objPHPExcel->getActiveSheet()->getStyle('A3:J3')->applyFromArray($estiloTituloColumnas);
+    $objPHPExcel->getActiveSheet()->getStyle('A1:E1')->applyFromArray($estiloTituloReporte);
+    $objPHPExcel->getActiveSheet()->getStyle('A3:E3')->applyFromArray($estiloTituloColumnas);
     //$objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A4:G" . ($i - 1));
-    $objPHPExcel->getActiveSheet()->getStyle('E4:E' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
-    $objPHPExcel->getActiveSheet()->getStyle('F4:F' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
-    $objPHPExcel->getActiveSheet()->getStyle('G4:G' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
-    $objPHPExcel->getActiveSheet()->getStyle('H4:H' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
+    //$objPHPExcel->getActiveSheet()->getStyle('E4:E' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
+    //$objPHPExcel->getActiveSheet()->getStyle('F4:F' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
+    //$objPHPExcel->getActiveSheet()->getStyle('G4:G' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
+    //$objPHPExcel->getActiveSheet()->getStyle('H4:H' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
 
-    for ($i = 'A'; $i <= 'J'; $i++) {
+    for ($i = 'A'; $i <= 'E'; $i++) {
         $objPHPExcel->setActiveSheetIndex(0)
             ->getColumnDimension($i)->setAutoSize(true);
     }
     // Se asigna el nombre a la hoja
-    $objPHPExcel->getActiveSheet()->setTitle('Productos');
+    $objPHPExcel->getActiveSheet()->setTitle('Inventario');
 
     // Se activa la hoja para que sea la que se muestre cuando el archivo se abre
     $objPHPExcel->setActiveSheetIndex(0);
@@ -182,7 +172,7 @@ if ($resultado->num_rows > 0) {
 
     // Se manda el archivo al navegador web, con el nombre que se indica (Excel2007)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="Reporteproductos.xlsx"');
+    header('Content-Disposition: attachment;filename="Inventario.xlsx"');
     header('Cache-Control: max-age=0');
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');

@@ -12,12 +12,12 @@ $user_id = $_SESSION['id_users'];
 $action  = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
     $daterange = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['range'], ENT_QUOTES)));
-    $categoria = intval($_REQUEST['categoria']);
+    $vendedor = intval($_REQUEST['vendedor']);
     $tables    = "detalle_fact_ventas,  productos, facturas_ventas";
     $campos    = "*";
     $sWhere    = "productos.id_producto=detalle_fact_ventas.id_producto and facturas_ventas.id_factura=detalle_fact_ventas.id_factura";
-    if ($categoria > 0) {
-        $sWhere .= " and productos.id_linea_producto = '" . $categoria . "'";
+    if ($vendedor > 0) {
+        $sWhere .= " and facturas_ventas.id_users_factura = '" . $vendedor . "'";
     }
     if (!empty($daterange)) {
         list($f_inicio, $f_final)                    = explode(" - ", $daterange); //Extrae la fecha inicial y la fecha final en formato espa?ol
@@ -90,11 +90,11 @@ $finales = 0;
                         <td class='text-center'><label class='badge badge-purple'><?php echo $codigo_producto; ?></label></td>
                         <td><?php echo $nombre_producto; ?></td>
                         <td><span class="badge badge-success"><?php echo $cantidad; ?></span></td>
-                        <td class='text-left'><?php echo $simbolo_moneda . '' . number_format($costo_saldo, 2); ?></td>
-                        <td><b><?php echo $simbolo_moneda . '' . number_format($total_costo, 2); ?></b></td>
-                        <td><?php echo $simbolo_moneda . '' . number_format($descuento, 2); ?></td>
-                        <td><b><?php echo $simbolo_moneda . '' . number_format($final_items, 2); ?></b></td>
-                        <td><b><?php echo $simbolo_moneda . '' . number_format($utilidad, 2); ?></b></td>
+                        <td class='text-left'><?php echo $simbolo_moneda . '' . number_format($costo_saldo, 0,"","."); ?></td>
+                        <td><b><?php echo $simbolo_moneda . ' ' . number_format($total_costo, 0,"","."); ?></b></td>
+                        <td><?php echo $simbolo_moneda . ' ' . number_format($descuento, 0,"","."); ?></td>
+                        <td><b><?php echo $simbolo_moneda . ' ' . number_format($final_items, 0,"","."); ?></b></td>
+                        <td><b><?php echo $simbolo_moneda . ' ' . number_format($utilidad, 0,"","."); ?></b></td>
                     </tr>
                     <?php }?>
                 </table>
@@ -105,7 +105,7 @@ $finales = 0;
                 <?php
 $inicios = $offset + 1;
         $finales += $inicios - 1;
-        echo "Mostrando $inicios al $finales de $numrows registros";
+        //echo "Mostrando $inicios al $finales de $numrows registros";
         echo paginate($reload, $page, $total_pages, $adjacents);?>
 
             </div>

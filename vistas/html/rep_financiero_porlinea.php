@@ -69,14 +69,14 @@ $Reportes = 1;
 
 											<div class="col-xs-4">
 												<div class="input-group">
-													<select name='vendedor' id='vendedor' class="form-control" onchange="load(1);">
-														<option value="">-- Selecciona Vendedor --</option>
+													<select name='categoria' id='categoria' class="form-control" onchange="load(1);">
+														<option value="">-- Selecciona Linea --</option>
 														<option value="">Todos</option>
 														<?php
-														    $query_categoria = mysqli_query($conexion, "select * from users order by id_users");
+														    $query_categoria = mysqli_query($conexion, "select * from lineas order by nombre_linea");
     														while ($rw = mysqli_fetch_array($query_categoria)) {
         													?>
-																<option value="<?php echo $rw['id_users']; ?>"><?php echo $rw['nombre_users']; ?></option>
+																<option value="<?php echo $rw['id_linea']; ?>"><?php echo $rw['nombre_linea']; ?></option>
 															<?php
 															}
     														?>
@@ -100,9 +100,9 @@ $Reportes = 1;
 																</span>
 															</button>
 															<div class="dropdown-menu">
-																<!--a class="dropdown-item" href="#" onclick="reporte();">
+																<a class="dropdown-item" href="#" onclick="reporte();">
 																	<i class='fa fa-file-pdf-o'></i> PDF
-																</a-->
+																</a>
 																<a class="dropdown-item" href="#" onclick="reporte_excel();">
 																	<i class='fa fa-file-excel-o'></i> Excel
 																</a>
@@ -210,8 +210,8 @@ $('.daterange').daterangepicker({
 });
 	function load(page){
     var range=$("#range").val();
-    var vendedor=$("#vendedor").val();
-    var parametros = {"action":"ajax","page":page,'range':range,'vendedor':vendedor	};
+    var categoria=$("#categoria").val();
+    var parametros = {"action":"ajax","page":page,'range':range,'categoria':categoria};
     $("#loader").fadeIn('slow');
     $.ajax({
       url:'../ajax/rep_financiero.php',
