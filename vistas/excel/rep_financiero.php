@@ -11,13 +11,13 @@ require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de 
 //Archivo de funciones PHP
 require_once "../funciones.php";
 //FIN
-$categoria = intval($_REQUEST['categoria']);
+$vendedor = intval($_REQUEST['vendedor']);
 $daterange = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['range'], ENT_QUOTES)));
 $tables    = "detalle_fact_ventas,  productos, facturas_ventas";
 $campos    = "*";
 $sWhere    = "productos.id_producto=detalle_fact_ventas.id_producto and facturas_ventas.id_factura=detalle_fact_ventas.id_factura";
-if ($categoria > 0) {
-    $sWhere .= " and productos.id_linea_producto = '" . $categoria . "'";
+if ($vendedor > 0) {
+    $sWhere .= " and facturas_ventas.id_users_factura = '" . $vendedor . "'";
 }
 if (!empty($daterange)) {
     list($f_inicio, $f_final)                    = explode(" - ", $daterange); //Extrae la fecha inicial y la fecha final en formato espa?ol
@@ -186,12 +186,12 @@ if ($resultado->num_rows > 0) {
     $objPHPExcel->getActiveSheet()->getStyle('A1:I1')->applyFromArray($estiloTituloReporte);
     $objPHPExcel->getActiveSheet()->getStyle('A3:I3')->applyFromArray($estiloTituloColumnas);
     //$objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A4:G" . ($i - 1));
-    $objPHPExcel->getActiveSheet()->getStyle('D4:D' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
-    $objPHPExcel->getActiveSheet()->getStyle('E4:E' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
-    $objPHPExcel->getActiveSheet()->getStyle('F4:F' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
-    $objPHPExcel->getActiveSheet()->getStyle('G4:G' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
-    $objPHPExcel->getActiveSheet()->getStyle('H4:H' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
-    $objPHPExcel->getActiveSheet()->getStyle('I4:I' . ($i - 1))->getNumberFormat()->setFormatCode('#,##0.00'); //FORMATO NUMERICO
+    $objPHPExcel->getActiveSheet()->getStyle('D4:D' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
+    $objPHPExcel->getActiveSheet()->getStyle('E4:E' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
+    $objPHPExcel->getActiveSheet()->getStyle('F4:F' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
+    $objPHPExcel->getActiveSheet()->getStyle('G4:G' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
+    $objPHPExcel->getActiveSheet()->getStyle('H4:H' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
+    $objPHPExcel->getActiveSheet()->getStyle('I4:I' . ($i - 1))->getNumberFormat()->setFormatCode('#,#0;[Red]-#,#0'); //FORMATO NUMERICO
 
     for ($i = 'A'; $i <= 'I'; $i++) {
         $objPHPExcel->setActiveSheetIndex(0)

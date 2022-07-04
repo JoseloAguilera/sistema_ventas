@@ -231,12 +231,12 @@ $('.daterange').daterangepicker({
     var daterange=$("#range").val();
     var categoria=$("#categoria").val();
 
-    VentanaCentrada('../pdf/documentos/rep_financiero.php?daterange='+daterange+"&categoria="+categoria,'Reporte','','800','600','true');
+    VentanaCentrada('../pdf/documentos/rep_financiero.php?daterange='+daterange+"&vendedor="+vendedor,'Reporte','','800','600','true');
   }
   function reporte_excel(){
 			var range=$("#range").val();
-			 var categoria=$("#categoria").val();
-			window.location.replace("../excel/rep_financiero.php?range="+range+"&categoria="+categoria);
+			 var vendedor=$("#vendedor").val();
+			window.location.replace("../excel/rep_financiero.php?range="+range+"&vendedor="+vendedor);
     //VentanaCentrada('../excel/rep_gastos.php?daterange='+daterange+"&employee_id="+employee_id,'Reporte','','500','25','true');+"&tipo="+tipo
 }
 </script>
