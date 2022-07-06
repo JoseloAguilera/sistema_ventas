@@ -17,7 +17,7 @@ permisos($modulo, $cadena_permisos);
 
 $count      = mysqli_query($conexion, "select MAX(codigo_producto) as codigo from productos");
 $rw         = mysqli_fetch_array($count);
-$product_id = $rw['codigo'] + 1;
+$product_id = 0 + 1;
 $title     = "Compras";
 $pacientes = 1;
 ?>

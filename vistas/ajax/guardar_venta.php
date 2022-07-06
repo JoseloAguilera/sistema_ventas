@@ -177,10 +177,10 @@ if (empty($_POST['id_cliente'])) {
     $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans')");
     $delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     // SI TODO ESTA CORRECTO
-    if ($condiciones == 4) {
+    if ($condiciones == 5) {
         echo "<script>
         swal({
-          title: 'VENTA AL CREDITO GUARDADA CON EXITO CON ATICIPO DE: $simbolo_moneda $resibido_formato',
+          title: 'VENTA AL CREDITO GUARDADA CON EXITO CON ANTICIPO DE: $simbolo_moneda $resibido_formato',
           text: 'Factura: $numero_factura',
           type: 'success',
           confirmButtonText: 'ok'
@@ -192,8 +192,8 @@ if (empty($_POST['id_cliente'])) {
         echo "<script>
         $('#outer_comprobante').load('../ajax/carga_correlativos.php');
         $('#resultados5').load('../ajax/carga_num_trans.php')
-    $('#modal_vuelto').modal('show');
-</script>";
+        $('#modal_vuelto').modal('show');
+        </script>";
         #$messages[] = "Venta  ha sido Guardada satisfactoriamente.";
     } else {
         $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);
@@ -239,14 +239,23 @@ foreach ($messages as $message) {
                 <h4 class="modal-title" id="myModalLabel"><i class='fa fa-edit'></i> FACTURA: <?php echo $numero_factura; ?></h4>
             </div>
             <div class="modal-body" align="center">
-                <strong><h3>CAMBIO</h3></strong>
-                <div class="alert alert-info" align="center">
+            <?php if ($condiciones == 4){ ?>
+                    <strong><h3>VENTA AL CREDITO GUARDADA CON EXITO CON ANTICIPO DE: </h3></strong>
+                    <div class="alert alert-info" align="center">
+                    <strong><h1>
+                        <?php echo $simbolo_moneda . ' ' . $resibido_formato; ?>
+
+                    </h1></strong>
+                    </div>
+                <?php }else{ ?>
+                    <strong><h3>CAMBIO</h3></strong>
+                    <div class="alert alert-info" align="center">
                     <strong><h1>
                         <?php echo $simbolo_moneda . ' ' . $camb; ?>
 
                     </h1></strong>
-                </div>
-
+                    </div>
+                    <?php } ?>
             </div>
             <div class="modal-footer">
                 <!--button type="button" id="imprimir" class="btn btn-primary btn-block btn-lg waves-effect waves-light" onclick="printOrder('1');" accesskey="t" ><span class="fa fa-print"></span> Ticket</button><br-->
