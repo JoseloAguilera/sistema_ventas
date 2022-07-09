@@ -268,8 +268,8 @@ function printFactura(id_factura) {
 				mywindow.document.write('</body></html>');
                 mywindow.document.close(); // necessary for IE >= 10
                 mywindow.focus(); // necessary for IE >= 10
-                mywindow.print();
-                mywindow.close();
+                //mywindow.print();
+                //mywindow.close();
             } // /success function
 
         }); // /ajax function to fetch the printable order
