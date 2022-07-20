@@ -12,6 +12,7 @@ $(document).ready(function() {
 
 function load(page) {
     var q = $("#q").val();
+    var t = $("#t").val();
     $("#loader").fadeIn('slow');
     $.ajax({
         url: '../ajax/productos_modal_ventas.php?action=ajax&page=' + page + '&q=' + q,
@@ -23,7 +24,19 @@ function load(page) {
             $('#loader').html('');
         }
     })
+    $.ajax({
+        url: '../ajax/clientes_modal_ventas.php?action=ajax&page=' + page + '&t=' + t,
+        beforeSend: function(objeto) {
+            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function(data) {
+            $(".outer_div_cliente").html(data).fadeIn('slow');
+            $('#loader').html('');
+        }
+    })
 }
+
+
 
 function agregar(id) {
     var precio_venta = document.getElementById('precio_venta_' + id).value;
@@ -60,6 +73,8 @@ function agregar(id) {
         }
     });
 }
+
+
 //CONTROLA EL FORMULARIO DEL CODIGO DE BARRA
 $("#barcode_form").submit(function(event) {
     var id = $("#barcode").val();
