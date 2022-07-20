@@ -48,6 +48,7 @@ if (isset($conexion)) {
       </div>
     </div>
   </form>
+
   <?php
 }
 ?>
