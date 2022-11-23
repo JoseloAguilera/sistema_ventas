@@ -84,7 +84,7 @@ while ($row = mysqli_fetch_array($query)) {
             $nombre_producto      = $row['nombre_producto'];
             $descripcion_producto = $row['descripcion_producto'];
             $linea_producto       = $row['id_linea_producto'];
-            $med_producto         = $row['id_med_producto'];
+            //$med_producto         = $row['id_med_producto'];
             $id_proveedor         = $row['id_proveedor'];
             $inv_producto         = $row['inv_producto'];
             $impuesto_producto    = $row['iva_producto'];
@@ -111,7 +111,7 @@ while ($row = mysqli_fetch_array($query)) {
                 <input type="hidden" value="<?php echo $descripcion_producto; ?>" id="descripcion_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $linea_producto; ?>" id="linea_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $id_proveedor; ?>" id="proveedor_producto<?php echo $id_producto; ?>">
-                <!--<input type="hidden" value="<?php echo $med_producto; ?>" id="med_producto<?php echo $id_producto; ?>">-->
+                <!--<input type="hidden" value="<?php /*echo $med_producto;*/ ?>" id="med_producto<?php echo $id_producto; ?>">-->
                 <input type="hidden" value="<?php echo $inv_producto; ?>" id="inv_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $impuesto_producto; ?>" id="impuesto_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $stock_producto; ?>" id="stock_producto<?php echo $id_producto; ?>">

@@ -13,10 +13,10 @@ $user_id        = $_SESSION['id_users'];
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 $action         = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
-    $daterange = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['range'], ENT_QUOTES)));
+   // $daterange = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['range'], ENT_QUOTES)));
     $tables    = "creditos_abonos";
     $campos    = "*";
-    $sWhere    = "numero_factura='" . $numero_factura . "'";
+    $sWhere    = "numero_factura =  '".$numero_factura."'";
     if (!empty($daterange)) {
         list($f_inicio, $f_final)                    = explode(" - ", $daterange); //Extrae la fecha inicial y la fecha final en formato espa?ol
         list($dia_inicio, $mes_inicio, $anio_inicio) = explode("/", $f_inicio); //Extrae fecha inicial
@@ -42,7 +42,7 @@ if ($action == 'ajax') {
     //main query to fetch the data
     $query = mysqli_query($conexion, "SELECT $campos FROM  $tables where $sWhere LIMIT $offset,$per_page");
     //loop through fetched data
-
+    //include '../modal/eliminar_abono.php';
     if ($numrows > 0) {
         ?>
 
@@ -50,10 +50,12 @@ if ($action == 'ajax') {
             <table class="table table-sm table table-condensed table-hover table-striped ">
                 <tr>
                     <th>Factura</th>
+                    <th>Cliente</th>
                     <th>Fecha</th>
                     <th>Crédito</th>
                     <th>Abonos</th>
                     <th>Saldo</th>
+                    <th>Acción</th>
                     <th></th>
                 </tr>
                 <?php
@@ -66,13 +68,22 @@ $finales = 0;
             ?>
                     <tr>
                         <td><label class='badge badge-purple'><?php echo $row['numero_factura']; ?></label></td>
+                        <td><?php echo "cliente" ?></td>
                         <td><?php echo date("d/m/Y", strtotime($row['fecha_abono'])); ?></td>
                         <td><?php echo $simbolo_moneda . ' ' . number_format($row['monto_abono'], 0,"","."); ?></td>
                         <td><?php echo $simbolo_moneda . ' ' . number_format($row['abono'], 0,"","."); ?></td>
                         <td><?php echo $simbolo_moneda . ' ' . number_format($row['saldo_abono'], 0,"","."); ?></td>
-                        <td><a class='btn btn-info btn-sm waves-effect waves-light' href="#" title="Imprimir Resibo" onclick="imprimir_abono('<?php echo $row['id_abono']; ?>');"><i class="fa fa-print"></i>
-                        </a>
-                        </td>
+                        <td>
+                        <div class="btn-group dropdown">
+                            <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                            
+                                    <a class="dropdown-item" href="#" title="Imprimir Recibo" onclick="imprimir_abono('<?php echo $row['id_abono']; ?>');"><i class="fa fa-print"></i></a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete_abono" data-id="<?php echo $row['id_abono']; ?>"> <i class='fa fa-trash'></i> Borrar abono</a>
+                            
+                            </div>
+                        </div>
+        </td>
                     </tr>
                     <?php }?>
                 </table>
@@ -92,4 +103,5 @@ $inicios = $offset + 1;
 }
 }
 ?>
+
 

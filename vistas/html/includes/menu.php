@@ -43,9 +43,9 @@
 			<div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
 
 				<!-- item-->
-				<a href="javascript:void(0);" class="dropdown-item notify-item">
+				<!--a href="javascript:void(0);" class="dropdown-item notify-item">
 					<i class="mdi mdi-account-star-variant"></i> <span>Perfil</span>
-				</a>
+				</a-->
 
 				<!-- item-->
 				<a href="../../login.php?logout" class="dropdown-item notify-item">

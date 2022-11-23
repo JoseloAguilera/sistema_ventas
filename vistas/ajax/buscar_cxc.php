@@ -76,7 +76,7 @@ while ($row = mysqli_fetch_array($query)) {
             $saldo          = $row['saldo_credito'];
             $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             ?>
-                        <tr>
+            <tr>
                          <td><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
                          <td><?php echo $fecha; ?></td>
                          <td><?php echo $nombre_cliente; ?></td>
@@ -84,16 +84,16 @@ while ($row = mysqli_fetch_array($query)) {
                          <td class='text-left'><b><?php echo $simbolo_moneda . ' ' . number_format($total_venta, 0,"","."); ?></b></td>
                          <td class='text-left'><b><?php echo $simbolo_moneda . ' ' . number_format($saldo, 0,"","."); ?></b></td>
                          <td class="text-center">
-                          <div class="btn-group dropdown">
+                         <div class="btn-group dropdown">
                             <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                <?php if ($permisos_editar == 1) {?>
                                <a class="dropdown-item" href="abonos_cxc.php?numero_factura=<?php echo $numero_factura; ?>"><i class='fa fa-search'></i> Ver Abonos</a>
-                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete_CXC" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-search'></i> Borrar cta por Cobrar</a>
+                               
                                <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#add-pago" onclick="obtener_datos('<?php echo $numero_factura; ?>');"><i class='fa fa-dollar'></i> Agregar Abono</a>-->
                                <?php }
             if ($permisos_eliminar == 1) {?>
-                               <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
+                               <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_credito; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                <?php }?>
 
 

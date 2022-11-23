@@ -32,7 +32,7 @@
     border-bottom: solid 1px #bdc3c7;
   }
   table.page_footer {width: 100%; border: none; background-color: white; padding: 2mm;border-collapse:collapse; border: none;}
-}
+
 -->
 </style>
 <page pageset='new' backtop='10mm' backbottom='10mm' backleft='20mm' backright='20mm' style="font-size: 13px; font-family: helvetica">
@@ -103,18 +103,18 @@ while ($row = mysqli_fetch_array($query)) {
      <td class='text-left'><?php echo $nombre_producto; ?></td>
      <td class='text-left'><?php echo $nombre_linea; ?></td>
      <td class='text-center'><?php echo $stock_producto ?></td>
-     <td class='text-left'><?php echo $simbolo_moneda . '' . number_format($costo_producto, 2); ?></td>
-     <td class='text-left'><?php echo $simbolo_moneda . '' . number_format($precio_venta, 2); ?></td>
-     <td class='text-left'><?php echo $simbolo_moneda . '' . number_format($precio_mayorista, 2); ?></td>
-     <td class='text-left'><?php echo $simbolo_moneda . '' . number_format($precio_especial, 2); ?></td>
-     <td class='text-center'><?php echo $simbolo_moneda . '' . number_format($total_costo, 2); ?></td>
+     <td class='text-left'><?php echo $simbolo_moneda . ' ' . number_format($costo_producto, 0, '', '.'); ?></td>
+     <td class='text-left'><?php echo $simbolo_moneda . ' ' . number_format($precio_venta, 0, '', '.'); ?></td>
+     <td class='text-left'><?php echo $simbolo_moneda . ' ' . number_format($precio_mayorista, 0, '', '.'); ?></td>
+     <td class='text-left'><?php echo $simbolo_moneda . ' ' . number_format($precio_especial, 0, '', '.'); ?></td>
+     <td class='text-center'><?php echo $simbolo_moneda . ' ' . number_format($total_costo, 0, '', '.'); ?></td>
    </tr>
    <?php
 }
 
 ?>
  <tr>
-  <td style='text-align:right;border-top:3px solid #2c3e50;padding:4px;padding-top:4px;font-size:14px' colspan="9"><?php echo $simbolo_moneda . '' . number_format($sumador_total, 2) ?></td>
+  <td style='text-align:right;border-top:3px solid #2c3e50;padding:4px;padding-top:4px;font-size:14px' colspan="9"><?php echo $simbolo_moneda . ' ' . number_format($sumador_total, 0, '', '.') ?></td>
 </tr>
 </table>
 <page_footer>

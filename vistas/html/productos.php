@@ -19,9 +19,6 @@ $rw         = mysqli_fetch_array($count);
 //$product_id = $rw['codigo'] + 1;
 $product_id = 0+1;
 //consulta para elegir el impuesto en la modal
-$query    = $conexion->query("select * from impuestos");
-$impuesto = array();
-while ($r = $query->fetch_object()) {$impuesto[] = $r;}
 ?>
 
 <?php require 'includes/header_start.php';?>
@@ -115,9 +112,9 @@ if ($permisos_editar == 1) {
 																</span>
 															</button>
 															<div class="dropdown-menu">
-																<!--a class="dropdown-item" href="#" onclick="reporte();">
+																<a class="dropdown-item" href="#" onclick="reporte();">
 																	<i class='fa fa-file-pdf-o'></i> PDF
-																</a-->
+																</a>
 																<a class="dropdown-item" href="#" onclick="reporte_excel();">
 																	<i class='fa fa-file-excel-o'></i> Producto
 																</a>
@@ -343,11 +340,11 @@ if ($permisos_editar == 1) {
 			window.location.replace("../excel/rep_productos_inventario.php?q="+q);
     	//VentanaCentrada('../excel/rep_gastos.php?daterange='+daterange+"&employee_id="+employee_id,'Reporte','','500','25','true');+"&tipo="+tipo
 		}
-		/*function reporte(){
+		function reporte(){
 			var daterange=$("#range").val();
 			var categoria=$("#categoria").val();
 			VentanaCentrada('../pdf/documentos/rep_productos.php?daterange='+daterange+"&categoria="+categoria,'Reporte','','800','600','true');
-		}*/
+		}
 </script>
 <?php require 'includes/footer_end.php'
 ?>

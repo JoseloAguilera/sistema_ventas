@@ -72,7 +72,7 @@ $ventas = 1;
 										</div>
 									</form>
 									<div id="resultados_ajax"></div>
-									<div class="datos_ajax_delete"></div><!-- Datos ajax Final -->
+									<!--div class="datos_ajax_delete"></div><!-- Datos ajax Final -->
 									<div class='outer_div'></div><!-- Carga los datos ajax -->
 
 

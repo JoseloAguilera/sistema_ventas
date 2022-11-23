@@ -32,6 +32,7 @@ if (isset($_GET['numero_factura'])) {
     header("location: ../html/cxc.php");
     exit;
 }
+
 ?>
 
 <?php require 'includes/header_start.php';?>
@@ -73,6 +74,7 @@ if (isset($_GET['numero_factura'])) {
 										<div class="col-lg-4">
 											<?php
 include "../modal/agregar_abono.php";
+include '../modal/eliminar_abono.php';
     ?>
 											<div class="col-lg-12 col-md-6">
 												<div class="widget-bg-color-icon card-box">
@@ -128,7 +130,8 @@ include "../modal/agregar_abono.php";
 													</form>
 													<div class="col-md-12" align="center">
 														<div id="resultados_ajax"></div>
-														<div class="clearfix"></div>
+														<!--div class="clearfix"></div-->
+														<div class="datos_ajax_delete" id="#se_elimino"></div><!-- Datos ajax Final -->
 														<div class='outer_div'></div><!-- Carga los datos ajax -->
 													</div>
 												</div>

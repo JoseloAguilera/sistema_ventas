@@ -54,8 +54,8 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         <tbody>
 
             <?php
-$impuesto       = get_row('perfil', 'impuesto', 'id_perfil', 1);
-$nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
+//$impuesto       = get_row('perfil', 'impuesto', 'id_perfil', 1);
+//$nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
 $sumador_total  = 0;
 $total_iva0      = 0;
 $total_iva5      = 0;

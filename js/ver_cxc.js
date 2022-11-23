@@ -23,6 +23,47 @@ function load(page) {
         }
     })
 }
+
+$('#dataDelete_abono').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget) // Botón que activó el modal
+    var id = button.data('id') // Extraer la información de atributos de datos
+    //console.log(id);
+    var modal = $(this)
+    modal.find('#id_abono').val(id)
+    
+})
+$("#eliminarDatos").submit(function(event) {
+    var parametros = $(this).serialize();
+    $.ajax({
+        type: "POST",
+        url: "../ajax/eliminar_abono.php", //ver si esta el archivo
+        data: parametros,
+        beforeSend: function(objeto) {
+            $("#se_elimino").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function(datos) {
+            $("#se_elimino").html(datos);
+            $('#dataDelete_abono').modal('hide');
+            
+            //load(1);
+            //desaparecer la alerta
+            $(".alert-success").delay(400).show(10, function() {
+                $(this).delay(2000).hide(10, function() {
+                    $(this).remove();
+                });
+            }); // /.alert
+            /*window.setTimeout(function() {
+                $(".alert").fadeTo(200, 0).slideUp(200, function() {
+                    $(this).remove();
+                });
+            }, 2000);*/
+            
+        }
+    });
+    window.location.reload();
+    event.preventDefault();
+});
+
 $("#add_abono").submit(function(event) {
     $('#guardar_datos').attr("disabled", true);
     var abono = $("#abono").val();
@@ -50,7 +91,7 @@ $("#add_abono").submit(function(event) {
             $("#add_abono")[0].reset();
             //cierra la Modal
             $("#outer_div").load("../ajax/ver_cxc.php");
-             $("#widgets").load("../ajax/carga_widgets.php");
+            $("#widgets").load("../ajax/carga_widgets.php");
             $('#add-stock').modal('hide');
             //desaparecer la alerta
             window.setTimeout(function() {

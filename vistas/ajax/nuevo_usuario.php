@@ -80,6 +80,7 @@ if (empty($_POST['firstname'])) {
             $messages[] = "La cuenta ha sido creada con éxito.";
         } else {
             $errors[] = "Lo sentimos , el registro falló. Por favor, regrese y vuelva a intentarlo.";
+            var_dump($query_new_user_insert);
         }
     }
 
