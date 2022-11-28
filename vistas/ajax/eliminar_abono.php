@@ -17,20 +17,20 @@ if (empty($_POST['id_abono'])) {
     if (isset($_POST['id_abono'])) {
         console.log(id_abono);
         $id_abono = intval($_POST['id_abono']);
-        $del1       = "delete from creditos_abonos where id_abono ='".$id_abono."'";
+        $del1       = "update creditos_abonos set estado='1' where id_abono ='".$id_abono."'";
         //$del2       = "delete from detalle_fact_ventas where id_factura='" . $id_factura . "'";
         if ($delete1 = mysqli_query($conexion, $del1) ) {
             ?>
       <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Aviso!</strong> Datos eliminados exitosamente
+        <strong>Aviso!</strong> Abono anulado Correctamente
       </div>
       <?php
 } else {
             ?>
       <div class="alert alert-danger alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Error!</strong> No se pudo eliminar los datos
+        <strong>Error!</strong> No se pudo anular
       </div>
       <?php
 

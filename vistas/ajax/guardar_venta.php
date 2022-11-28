@@ -158,7 +158,6 @@ if (empty($_POST['id_cliente'])) {
         $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
         $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
         $update  = mysqli_query($conexion, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
-
         $nums++;
     }
     // Fin de la consulta Principal
@@ -172,9 +171,11 @@ if (empty($_POST['id_cliente'])) {
     $resibido_formato = number_format($resibido, 0, '', '.');
     if ($condiciones == 4) {
         $insert_prima = mysqli_query($conexion, "INSERT INTO creditos VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$total_factura','$saldo_credito','1','$users','1')");
-        $insert_abono = mysqli_query($conexion, "INSERT INTO creditos_abonos VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$total_factura','$resibido','$saldo_credito','$users','1','CREDITO INICAL')");
+        $sql_credito = mysqli_query($conexion, "SELECT MAX(id_credito) as cod FROM creditos");
+        $numero_cred = mysqli_fetch_array($sql_credito);
+        $numero_credito = $numero_cred['cod'];
+        $insert_abono = mysqli_query($conexion, "INSERT INTO creditos_abonos VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$total_factura','$resibido','$saldo_credito','$users','1','CREDITO INICIAL','$numero_credito','0')");
     }
-
     $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans')");
     $delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     // SI TODO ESTA CORRECTO
