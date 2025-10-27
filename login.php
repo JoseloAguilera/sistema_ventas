@@ -1,36 +1,30 @@
 <?php
-// Habilitar errores para depuración local
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-ini_set('log_errors', '1');
-ini_set('error_log', '/Applications/XAMPP/xamppfiles/logs/php_error.log');
-
-if(!isset($_SESSION)) {
-    session_start();
+// checking for minimum PHP version
+if (version_compare(PHP_VERSION, '5.3.7', '<')) {
+    exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
+} else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+    // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
+    // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
+    require_once "vistas/libraries/password_compatibility_library.php";
 }
-ob_start();
 
+// include the configs / constants for the database connection
 require_once "vistas/db.php";
+
+// load the login class
 require_once "classes/Login.php";
 
-// Crear instancia de Login
+// create a login object. when this object is created, it will do all login/logout stuff automatically
+// so this single line handles the entire login process. in consequence, you can simply ...
 $login = new Login();
 
-// Verificar login
+// ... ask if we are logged in here:
 if ($login->isUserLoggedIn() == true) {
-    error_log("Login exitoso - intentando redirigir...");
-    if (headers_sent($file, $line)) {
-        error_log("No se pueden enviar headers, ya se envió salida en $file en la línea $line");
-        // fallback por JS si los headers ya se enviaron
-        echo "<script>window.location.href='/sistema_ventas/vistas/html/principal.php';</script>";
-        exit();
-    } else {
-        header("Location: /sistema_ventas/vistas/html/principal.php");
-        exit();
-    }
+    // the user is logged in. you can do whatever you want here.
+    // for demonstration purposes, we simply show the "you are logged in" view.
+    header("location: vistas/html/principal.php");
+
 } else {
-    error_log("Error en login: " . print_r($login->errors, true));
     // the user is not logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are not logged in" view.
     ?>
@@ -44,7 +38,7 @@ if ($login->isUserLoggedIn() == true) {
 
         <link rel="shortcut icon" href="assets/images/favicon.png">
 
-        <title>Facturación v.3</title>
+        <title>Facturación V.1.0</title>
 
         <link href="../plugins/switchery/switchery.min.css" rel="stylesheet" />
 

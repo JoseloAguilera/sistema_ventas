@@ -4,7 +4,7 @@
 	<!-- LOGO -->
 	<div class="topbar-left">
 		<div class="text-center">
-			<a href="#" class="logo"><i class="mdi mdi-radar"></i> <span>AJAKA System</span></a>
+			<a href="#" class="logo"><i class="mdi mdi-radar"></i> <span>ECLÉCTICA</span></a>
 			<?php //	var_dump($DateAndTime); ?>
 		</div>
 	</div>
@@ -98,6 +98,8 @@
 										<li><a href="../html/productos.php">Productos</a></li>
 										<li><a href="../html/kardex.php">Kardex</a></li>
 										<li><a href="../html/ajustes.php">Ajuste de Inventario</a></li>
+										<li><a href="../html/transferencia.php">Transferencia</a></li>
+										<li><a href="../html/produccion.php">Producción</a></li>
 									</ul>
 								</li>
 
@@ -148,8 +150,8 @@
 													<li><a href="../html/rep_ventas.php">Reporte de Ventas</a></li>
 													<!--<li><a href="../html/rep_ventas_users.php">Ventas por Usuarios</a></li>-->
 													<li><a href="../html/rep_compras.php">Reporte de Compras</a></li>
-													<li><a href="../html/rep_caja_chica.php">Reporte Caja chica</a></li>
-													<li><a href="../html/rep_caja_general.php">Corte de Caja General</a></li>
+													<!-- <li><a href="../html/rep_caja_chica.php">Reporte Caja chica</a></li>
+													<li><a href="../html/rep_caja_general.php">Corte de Caja General</a></li> -->
 													<li><a href="../html/rep_financiero.php">Reporte Financiero</a></li>
 												</ul>
 											</li>
@@ -158,13 +160,13 @@
 												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-settings"></i><span> Configuración </span> <span class="menu-arrow"></span></a>
 												<ul class="list-unstyled">
 													<li><a href="../html/empresa.php">Empresa</a></li>
-													<li><a href="../html/sucursales.php">Sucursales</a></li>
+												<!-- 	<li><a href="../html/sucursales.php">Sucursales</a></li> -->
 													<li><a href="../html/comprobantes.php">Comprobantes</a></li>
 													<!--<li><a href="../html/impuestos.php">Impuestos</a></li>-->
 													<li><a href="../html/grupos.php">Grupos de Usuarios</a></li>
 													<li><a href="../html/usuarios.php">Usuario</a></li>
-													<li><a href="../html/backup.php">Backup</a></li>
-													<li><a href="../html/restore.php">Restore</a></li>
+													<!-- <li><a href="../html/backup.php">Backup</a></li>
+													<li><a href="../html/restore.php">Restore</a></li> -->
 												</ul>
 											</li>
 

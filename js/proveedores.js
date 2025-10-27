@@ -4,6 +4,7 @@
 
 		function load(page) {
 		    var q = $("#q").val();
+			
 		    $("#loader").fadeIn('slow');
 		    $.ajax({
 		        url: '../ajax/buscar_proveedor.php?action=ajax&page=' + page + '&q=' + q,
@@ -18,6 +19,7 @@
 		            });
 		        }
 		    })
+			
 		}
 		$("#guardar_proveedor").submit(function(event) {
 		    $('#guardar_datos').attr("disabled", true);
@@ -49,6 +51,7 @@
 		$("#editar_proveedor").submit(function(event) {
 		    $('#actualizar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
+			
 		    $.ajax({
 		        type: "POST",
 		        url: "../ajax/editar_proveedor.php",
@@ -102,6 +105,7 @@
 		});
 
 		function obtener_datos(id) {
+		
 		    var nombre_proveedor = $("#nombre_proveedor" + id).val();
 		    var fiscal_proveedor = $("#fiscal_proveedor" + id).val();
 		    var web_proveedor = $("#web_proveedor" + id).val();
@@ -110,6 +114,12 @@
 		    var email_proveedor = $("#email_proveedor" + id).val();
 		    var telefono_proveedor = $("#telefono_proveedor" + id).val();
 		    var estado_proveedor = $("#estado_proveedor" + id).val();
+		    var facebook = $("#facebook" + id).val();
+		    var instagram = $("#instagram" + id).val();
+		    var twitter = $("#twitter" + id).val();
+		    var tiktok = $("#tiktok" + id).val();
+		    var rubro = $("#rubro" + id).val();
+		    var especialidad = $("#especialidad" + id).val();
 		    $("#mod_nombre").val(nombre_proveedor);
 		    $("#mod_fiscal").val(fiscal_proveedor);
 		    $("#mod_web").val(web_proveedor);
@@ -119,4 +129,13 @@
 		    $("#mod_telefono").val(telefono_proveedor);
 		    $("#mod_estado").val(estado_proveedor);
 		    $("#mod_id").val(id);
+		    $("#mod_facebook").val(facebook);
+		    $("#mod_instagram").val(instagram);
+		    $("#mod_twitter").val(twitter);
+		    $("#mod_tiktok").val(tiktok);
+			$("#mod_rubro").val(rubro);
+			$("#mod_especialidad").val(especialidad);
+
+			//console.log(rubro)
 		}
+		

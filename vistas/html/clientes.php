@@ -62,17 +62,29 @@ if ($permisos_editar == 1) {
 
 								<form class="form-horizontal" role="form" id="datos_cotizacion">
 									<div class="form-group row">
-										<div class="col-md-6">
-											<div class="input-group">
-												<input type="text" class="form-control" id="q" placeholder="Buscar por Nombre o RUC | Cedula" onkeyup='load(1);' autocomplete="off">
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-outline-info btn-rounded waves-effect waves-light" onclick='load(1);'>
-														<span class="fa fa-search" ></span></button>
-													</span>
-												</div>
+											<div class="col-md-4">
+													<div class="input-group">
+														<input type="text" class="form-control" id="q" placeholder="Buscar por Nombre | RUC | CI | CIUD" onkeyup='load(1);' autocomplete="off">
+														<span class="input-group-btn">
+															<button type="button" class="btn btn-outline-info btn-rounded waves-effect waves-light" onclick='load(1);'>
+																<span class="fa fa-search" ></span></button>
+															</span>
+													</div>
 											</div>
-											<div class="col-md-2">
+											<div class="col-md-4">
 												<span id="loader"></span>
+												<div class="form-group form-check">
+													<label class="form-check-label" for="hijos_chk">Hijos</label>													
+													<input type="checkbox" id="hijos_chk" name="hijos_chk" onclick="load(1);">
+													
+													<label class="form-check-label" for="pareja_chk">Pareja</label>													
+													<input type="checkbox"  id="pareja_chk" name="pareja_chk" onclick="load(1);">
+
+													<label class="form-check-label" for="int_mayorista">Mayor.</label>
+													<input type="checkbox"  id="int_mayorista_chk" name="int_mayorista_chk" onclick="load(1);">
+													
+												</div>
+												
 											</div>
 											<div class="col-md-2">
 												<div class="btn-group pull-right">

@@ -18,7 +18,7 @@ if (isset($conexion)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="fecha" class="control-label">Fecha</label>
-											<input type="date" class="form-control UpperCase" id="fecha" name="fecha" autocomplete="off" required>
+											<input type="date" class="form-control" id="fecha" name="fecha" autocomplete="off" required>
 										</div>
 
 									</div>
@@ -27,8 +27,20 @@ if (isset($conexion)) {
 											<label for="cuenta_contable" class="control-label">Cta Contable</label>
 											<select class="form-control" id="cuenta_contable" name="cuenta_contable" required>
 												<option value="">-- Selecciona --</option>
-												<option value="1" selected>a</option>
-												<option value="0">b</option>
+												<option value="adquisición de equipos">Adquisición de equipos</option>
+												<option value="arriendo">Arriendo</option>
+												<option value="creditos">Créditos</option>
+												<option value="formación">Formación</option>
+												<option value="impuestos">Impuestos</option>
+												<option value="inscripción en ferias">Inscripción en Ferias</option>
+												<option value="internet">Internet</option>
+												<option value="mantenimiento pagina web">Mantenimiento Página Web</option>
+												<option value="materiales de oficina">Materiales de Oficina</option>
+												<option value="movilidad">Movilidad</option>
+												<option value="pago de salarios">Pago de Salarios</option>
+												<option value="pasarela de pago">Pasarela de Pago</option>
+												<option value="publicidad">Publicidad</option>
+												<option value="servicio de encomienda">Servicio de Encomienda</option>	
 											</select>
 										</div>
 									</div>
@@ -74,16 +86,13 @@ if (isset($conexion)) {
 
 								<div class="row">
 									
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<div class="form-group">
 											<label for="medio_pago" class="control-label">Medio de Pago:</label>
-											<select class="form-control" id="medio_pago" name="medio_pago" required>
-												<option value="">-- Selecciona --</option>
-												<option value="efectivo" selected>Efectivo</option>
-												<option value="transferencias">Transferencia Bancaria</option>
-												<option value="tarjeta debito">Tarjeta de Débito</option>
-												<option value="tarjeta credito">Tarjeta de Crédito</option>
-											</select>
+											<input type="radio" id="medio_pago" name="medio_pago" value="efectivo" required> Efectivo
+											<input type="radio" id="medio_pago" name="medio_pago" value="transferencia"> Transferencia
+											<input type="radio" id="medio_pago" name="medio_pago" value="cheque"> Cheque
+											<input type="radio" id="medio_pago" name="medio_pago" value="tarjeta"> Tarjeta
 										</div>
 										
 									</div>

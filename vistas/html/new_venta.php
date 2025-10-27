@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
@@ -51,26 +50,29 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 									Nueva Venta
 								</h3>
 								<div class="portlet-widgets">
-									<div class="btn-group dropdown">
+									<!--<div class="btn-group dropdown">
 										<button type="button" class="btn btn-primary btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-dollar'></i> Caja<i class="caret"></i> </button>
 										<div class="dropdown-menu dropdown-menu-right">
-											<?php if ($permisos_editar == 1) {?>
-											<a class="dropdown-item text-muted" href="#" data-toggle="modal" data-target="#caja" onclick="obtener_caja('<?php echo $user_id; ?>');"><i class='fa fa-search'></i>  Ver Caja</a>
-											<?php }
-    if ($permisos_eliminar == 1) {?>
-											<a class="dropdown-item text-muted" href="#" data-toggle="modal" data-target="#myModal2" onclick="imprimir_factura('<?php echo $user_id; ?>');"><i class='fa fa-inbox'></i> Corte de Caja</a>
-											<?php }
-    ?>
-
-
+											<?php //if ($permisos_editar == 1) {?>
+											<a class="dropdown-item text-muted" href="#" data-toggle="modal" data-target="#caja" onclick="obtener_caja('<?php //echo $user_id; ?>');"><i class='fa fa-search'></i>  Ver Caja</a>
+											<?php //}
+											//if ($permisos_eliminar == 1) {?>
+																					<a class="dropdown-item text-muted" href="#" data-toggle="modal" data-target="#myModal2" onclick="imprimir_factura('<?php //echo $user_id; ?>');"><i class='fa fa-inbox'></i> Corte de Caja</a>
+																					<?php //}
+											?>
 										</div>
-									</div>
-								</div>
+									</div>-->
+
+
+
+
+								</div> 
 								<div class="clearfix"></div>
 							</div>
 							<div id="bg-primary" class="panel-collapse collapse show">
 								<div class="portlet-body">
 									<?php
+	
 	include "../modal/buscar_productos_ventas.php";
 	include "../modal/buscar_clientes_ventas.php";
     include "../modal/registro_cliente.php";
@@ -86,13 +88,26 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 													<div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
 													<form class="form-horizontal" role="form" id="barcode_form">
 														<div class="form-group row">
-															<label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
+															<label for="id_origen_venta" class="control-label">Origen:</label>
+															<div class="col-md-2" align="left">																	
+																<select id = "id_origen_venta" class = "form-control" name = "id_origen_venta" required autocomplete="off" onchange="getOrigen();"  >
+																		<option value="" selected>Seleccione</option>
+																		<option value="productos">Facebook</option>
+																		<option value="productos">Instagram</option>
+																		<option value="feria1">Feria 1</option>
+																		<option value="feria2">Feria 2</option>
+																		
+																		
+																</select>
+															</div>
+
+															<label for="barcode_qty" class="control-label">Cant:</label>
 															<div class="col-md-2">
 																<input type="text" class="form-control" id="barcode_qty" value="1" autocomplete="off">
 															</div>
 
 															<label for="condiciones" class="control-label">Codigo:</label>
-															<div class="col-md-5" align="left">
+															<div class="col-md-3" align="left">
 																<div class="input-group">
 																	<input type="text" class="form-control" id="barcode" autocomplete="off"  tabindex="1" autofocus="true" >
 																	<span class="input-group-btn">
@@ -101,9 +116,10 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 																</div>
 															</div>
 															<div class="col-md-2">
-																<button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar">
+																<button type="button" id="test" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar" disabled="true">
 																	<span class="fa fa-search"></span> Buscar
 																</button>
+																
 															</div>
 														</div>
 													</form>
@@ -254,16 +270,14 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 
 function agregar_cliente(id,nombre,ruc, correo) {
     //var id_cliente = id;
-    //console.log(id);
-	//console.log(nombre);
-	//console.log(ruc);
+    
 	var id_cliente = String(id);
 	$('#id_cliente').val(id_cliente);
 	$("#nombre_cliente").val(nombre);
 	$('#rnc').val(ruc);
 	$('#buscar_cliente').modal('hide');
 	$.Notification.notify('custom','bottom right','EXITO!', 'CLIENTE AGREGADO CORRECTAMENTE')
- }
+}
 
 	$(function() {
 		$("#nombre_cliente").autocomplete({
@@ -279,9 +293,10 @@ function agregar_cliente(id,nombre,ruc, correo) {
 		});
 	});
 
-	$("#nombre_cliente" ).on( "keydown", function( event ) {
+	$("#nombre_cliente" ).on("keydown", function( event ) {
 		if (event.keyCode== $.ui.keyCode.LEFT || event.keyCode== $.ui.keyCode.RIGHT || event.keyCode== $.ui.keyCode.UP || event.keyCode== $.ui.keyCode.DOWN || event.keyCode== $.ui.keyCode.DELETE || event.keyCode== $.ui.keyCode.BACKSPACE )
 		{
+			$("#nombre_cliente" ).val("");
 			$("#id_cliente" ).val("");
 			$("#rnc" ).val("");
 			$("#resultados4").load("../ajax/tipo_doc.php");
@@ -384,4 +399,3 @@ function printFactura(id_factura) {
 
 <?php require 'includes/footer_end.php'
 ?>
-

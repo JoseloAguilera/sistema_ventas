@@ -62,6 +62,34 @@ if (isset($conexion)) {
 									</div>
 								</div>
 
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="mod_rubro" class="control-label">Rubro:</label>
+											<select class="form-control" id="mod_rubro" name="mod_rubro" required>
+												<option value="" >-- Selecciona --</option>
+												<option value="Cuero" >Cuero</option>
+												<option value="Hilo Encerado">Hilo Encerado</option>
+												<option value="Hilo Chino" >Hilo Chino</option>
+												<option value="Dijes y Cuentas" >Dijes y Cuentas</option>
+												<option value="Resina" >Resina</option>
+												<option value="Cristales" >Cristales</option>
+												<option value="Packaging" >Packaging</option>
+												<option value="Productos Terminados" >Prod. Terminados</option>
+												<option value="Marketing Digital" >Marketing Digital</option>
+												<option value="Diseño Grafico" >Diseño Gráfico</option>
+												<option value="Informatica" >Informática</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="mod_especialidad" class="control-label">Especialidad:</label>
+											<input type="text" class="form-control" id="mod_especialidad" name="mod_especialidad" autocomplete="off">
+										</div>
+									</div>
+								</div>
+
 							</div>
 							<div class="tab-pane fade" id="mod_cont">
 
@@ -96,6 +124,39 @@ if (isset($conexion)) {
 												<option value="1" selected>Activo</option>
 												<option value="0">Inactivo</option>
 											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="mod_facebook" class="control-label">Facebook:</label>
+											<input type="text" class="form-control" id="mod_facebook" name="mod_facebook" autocomplete="off">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="mod_instagram" class="control-label">Instagram:</label>
+											<input type="text" class="form-control" id="mod_instagram" name="mod_instagram" autocomplete="off">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="mod_twitter" class="control-label">Twitter:</label>
+											<input type="text" class="form-control" id="mod_twitter" name="mod_twitter" autocomplete="off">
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="mod_tiktok" class="control-label">Tiktok:</label>
+											<input type="text" class="form-control" id="mod_tiktok" name="mod_tiktok" autocomplete="off">
 										</div>
 									</div>
 								</div>

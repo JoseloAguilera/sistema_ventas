@@ -61,6 +61,34 @@ if (isset($conexion)) {
 									</div>
 								</div>
 
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="rubro" class="control-label">Rubro:</label>
+											<select class="form-control" id="rubro" name="rubro" required>
+												<option value="">-- Selecciona --</option>
+												<option value="Cuero" >Cuero</option>
+												<option value="Hilo Encerado">Hilo Encerado</option>
+												<option value="Hilo Chino" >Hilo Chino</option>
+												<option value="Dijes y Cuentas" >Dijes y Cuentas</option>
+												<option value="Resina" >Resina</option>
+												<option value="Cristales" >Cristales</option>
+												<option value="Packaging" >Packaging</option>
+												<option value="Productos Terminados" >Prod. Terminados</option>
+												<option value="Marketing Digital" >Marketing Digital</option>
+												<option value="Diseño Grafico" >Diseño Gráfico</option>
+												<option value="Informatica" >Informática</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="especialidad" class="control-label">Especialidad:</label>
+											<input type="text" class="form-control" id="especialidad" name="especialidad" autocomplete="off">
+										</div>
+									</div>
+								</div>
+
 							</div>
 							<div class="tab-pane fade" id="contacto">
 
@@ -68,7 +96,7 @@ if (isset($conexion)) {
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="contacto" class="control-label">Nombre/Contacto:</label>
-											<input type="text" class="form-control UpperCase" id="contacto" name="contacto" autocomplete="off">
+											<input type="text" class="form-control UpperCase" id="contacto" name="contacto" autocomplete="off" required>
 										</div>
 									</div>
 								</div>
@@ -99,6 +127,39 @@ if (isset($conexion)) {
 									</div>
 								</div>
 
+
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="facebook" class="control-label">Facebook:</label>
+											<input type="text" class="form-control" id="facebok" name="facebook" autocomplete="off">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="instagram" class="control-label">Instagram:</label>
+											<input type="text" class="form-control" id="instagram" name="instagram" autocomplete="off">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="twitter" class="control-label">Twitter:</label>
+											<input type="text" class="form-control" id="twitter" name="twitter" autocomplete="off">
+										</div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="tiktok" class="control-label">Tiktok:</label>
+											<input type="text" class="form-control" id="tiktok" name="tiktok" autocomplete="off">
+										</div>
+									</div>
+								</div>
 
 							</div>
 						</div>

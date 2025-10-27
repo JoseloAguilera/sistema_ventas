@@ -46,13 +46,12 @@ class Login
     {
         // check login form contents
         if (empty($_POST['usuario_users'])) {
-            $this->errors[] = "Campo de usuario vacío.";
+            $this->errors[] = "Username field was empty.";
         } elseif (empty($_POST['con_users'])) {
-            $this->errors[] = "Campo de contraseña vacío.";
+            $this->errors[] = "Password field was empty.";
         } elseif (!empty($_POST['usuario_users']) && !empty($_POST['con_users'])) {
 
             // create a database connection, using the constants from config/db.php (which we loaded in index.php)
-            require_once("../vistas/db.php");
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
             // change character set to utf8 and check it
@@ -68,9 +67,9 @@ class Login
 
                 // database query, getting all the info of the selected user (allows login via email address in the
                 // username field)
-                $sql = "SELECT id_users, usuario_users, con_users 
+                $sql = "SELECT id_users, usuario_users, email_users, con_users
                         FROM users
-                        WHERE usuario_users = '" . $usuario_users . "';";
+                        WHERE  usuario_users = '" . $usuario_users . "' OR email_users = '" . $usuario_users . "';";
                 $result_of_login_check = $this->db_connection->query($sql);
 
                 // if this user exists
@@ -84,18 +83,19 @@ class Login
                     if (password_verify($_POST['con_users'], $result_row->con_users)) {
 
                         // write user data into PHP SESSION (a file on your server)
-                        $_SESSION['id_users'] = $result_row->id_users;
-                        $_SESSION['usuario_users'] = $result_row->usuario_users; 
+                        $_SESSION['id_users']          = $result_row->id_users;
+                        $_SESSION['usuario_users']     = $result_row->usuario_users;
+                        $_SESSION['email_users']       = $result_row->email_users;
                         $_SESSION['user_login_status'] = 1;
 
                     } else {
-                        $this->errors[] = "Contraseña incorrecta.";
+                        $this->errors[] = "Usuario y/o contraseña no coinciden.";
                     }
                 } else {
-                    $this->errors[] = "Usuario no existe.";
+                    $this->errors[] = "Usuario y/o contraseña no coinciden.";
                 }
             } else {
-                $this->errors[] = "Problema de conexión a la base de datos.";
+                $this->errors[] = "Problema de conexión de base de datos.";
             }
         }
     }
@@ -125,8 +125,4 @@ class Login
         // default return
         return false;
     }
-}
-
-if ($login->isUserLoggedIn() == true) {
-    header("location: vistas/html/principal.php");
 }
