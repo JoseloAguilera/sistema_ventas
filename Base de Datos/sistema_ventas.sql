@@ -16,9 +16,9 @@
 
 
 -- Volcando estructura de base de datos para sist_eclectica
-DROP DATABASE IF EXISTS `sist_eclectica`;
-CREATE DATABASE IF NOT EXISTS `sist_eclectica` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `sist_eclectica`;
+DROP DATABASE IF EXISTS `sistema_ventas`;
+CREATE DATABASE IF NOT EXISTS `sistema_ventas` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `sistema_ventas`;
 
 -- Volcando estructura para tabla sist_eclectica.caja_chica
 DROP TABLE IF EXISTS `caja_chica`;
