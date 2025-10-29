@@ -4,7 +4,7 @@
 	<!-- LOGO -->
 	<div class="topbar-left">
 		<div class="text-center">
-			<a href="#" class="logo"><i class="mdi mdi-radar"></i> <span>ECLÉCTICA</span></a>
+			<a href="#" class="logo"><i class="mdi mdi-radar"></i> <span>SISTEMA VENTAS</span></a>
 			<?php //	var_dump($DateAndTime); ?>
 		</div>
 	</div>

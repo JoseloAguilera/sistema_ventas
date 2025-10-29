@@ -1,2 +1,2 @@
 # eclectica
-Sistema de Gestión de Ventas - Eclectica Boutique
+Sistema de Gestión de Ventas
