@@ -18,7 +18,7 @@ File: Main Css
     position: relative;
     width: 240px;
     z-index: 1;
-    background-color: #7F7EBC;
+    background-color: #0275d8;
     }
   .topbar .topbar-left-sm {
     width: 180px; }
@@ -173,7 +173,7 @@ body.fixed-left .side-menu.left {
   display: inline-block;
   height: 70px;
   width: 60px;
-  background-color: #7f7ebc;
+  background-color: #0275d8;
   font-size: 24px;
   }
 
@@ -758,7 +758,7 @@ code, pre {
   background: transparent !important; }
 
 .bg-primary {
-  background-color: #9897ff !important;
+  background-color: #0275d8 !important;
   }
 
 .bg-success {
